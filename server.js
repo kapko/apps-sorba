@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/forms'), require('@angular/router'), require('@sorba-app/sorba-ui-components'), require('@ionic/angular'), require('@angular/core')) :
-    typeof define === 'function' && define.amd ? define('contacts', ['exports', '@angular/forms', '@angular/router', '@sorba-app/sorba-ui-components', '@ionic/angular', '@angular/core'], factory) :
-    (factory((global.contacts = {}),global.ng.forms,global.ng.router,global.sorbaUiComponents,global.angular,global.ng.core));
-}(this, (function (exports,forms,router,sorbaUiComponents,angular,i0) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/forms'), require('@angular/platform-browser'), require('@angular/router'), require('@sorba-app/sorba-ui-components'), require('@ionic/angular'), require('@angular/core')) :
+    typeof define === 'function' && define.amd ? define('contacts', ['exports', '@angular/forms', '@angular/platform-browser', '@angular/router', '@sorba-app/sorba-ui-components', '@ionic/angular', '@angular/core'], factory) :
+    (factory((global.contacts = {}),global.ng.forms,global.ng.platformBrowser,global.ng.router,global.sorbaUiComponents,global.angular,global.ng.core));
+}(this, (function (exports,forms,platformBrowser,router,sorbaUiComponents,angular,i0) { 'use strict';
 
     /**
      * @fileoverview added by tsickle
@@ -40,17 +40,89 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
+    /** @type {?} */
+    var menu = [
+        {
+            menuItemIcon: 'contact',
+            menuItemName: 'Contact list',
+            menuItemLink: '#/watcher/contacts',
+            subMenu: []
+        },
+        {
+            menuItemIcon: 'outlook',
+            menuItemName: 'Outlook export',
+            menuItemLink: '#/watcher/contacts',
+            subMenu: []
+        },
+        {
+            menuItemIcon: 'report',
+            menuItemName: 'Reports',
+            menuItemLink: '#/watcher/contacts',
+            subMenu: [
+                {
+                    subMenuItemName: 'Number ranges',
+                    subMenuItemLink: '#/watcher/contacts'
+                },
+                {
+                    subMenuItemName: 'Default values',
+                    subMenuItemLink: '#/watcher/contacts'
+                },
+                {
+                    subMenuItemName: 'Address import',
+                    subMenuItemLink: '#/watcher/contacts'
+                }
+            ]
+        },
+        {
+            menuItemIcon: 'mutations',
+            menuItemName: 'Global mutations',
+            menuItemLink: '#/watcher/contacts',
+            subMenu: []
+        },
+        {
+            menuItemIcon: 'settings-filled',
+            menuItemName: 'Settings',
+            menuItemLink: '#/watcher/contacts',
+            subMenu: [
+                {
+                    subMenuItemName: 'Number ranges',
+                    subMenuItemLink: '#/watcher/contacts'
+                },
+                {
+                    subMenuItemName: 'Default values',
+                    subMenuItemLink: '#/watcher/contacts'
+                },
+                {
+                    subMenuItemName: 'Address import',
+                    subMenuItemLink: '#/watcher/contacts'
+                },
+                {
+                    subMenuItemName: 'Subdivisions',
+                    subMenuItemLink: '#/watcher/contacts'
+                }
+            ]
+        }
+    ];
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
     var ContactsComponent = /** @class */ (function () {
         function ContactsComponent(contactService, router$$1) {
             this.contactService = contactService;
             this.router = router$$1;
+            this.menuData = menu;
             this.searchControl = new forms.FormControl('some text', []);
-            this.searchControl
-                .valueChanges
-                .subscribe(( /**
-         * @param {?} res
-         * @return {?}
-         */function (res) {
+            this.searchControl.valueChanges.subscribe(( /**
+             * @param {?} res
+             * @return {?}
+             */function (res) {
                 console.log(res);
             }));
         }
@@ -60,7 +132,9 @@
         ContactsComponent.prototype.ngOnInit = /**
          * @return {?}
          */
-            function () { };
+            function () {
+                this.windowWidth = window.innerWidth;
+            };
         /**
          * @return {?}
          */
@@ -84,7 +158,7 @@
         ContactsComponent.decorators = [
             { type: i0.Component, args: [{
                         selector: 'lib-contacts',
-                        template: "<lib-header></lib-header>\n\n<sr-content>\n  <sr-container noPadding=\"horizontal\">\n    <sr-content-card>\n      <ion-grid>\n        <ion-row>\n          <ion-col size=\"3\">\n            <lib-search-contacts [control]=\"searchControl\"></lib-search-contacts>\n            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque enim perferendis praesentium quas sint. Accusamus consequuntur eaque, explicabo facere fugiat illo ipsa, ipsam labore libero nemo nobis numquam quisquam sequi.\n          </ion-col>\n          <ion-col size=\"9\">\n            2222 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam animi architecto assumenda at beatae blanditiis consectetur consequatur cum debitis delectus deleniti dolorem ducimus eaque esse et, excepturi illo in ipsum iure libero, molestiae natus nesciunt nobis nulla obcaecati officia placeat quae quibusdam quisquam ratione reiciendis sapiente sed soluta totam veritatis voluptatibus voluptatum? Accusantium amet asperiores assumenda beatae dicta dolor dolore dolorum ducimus eligendi ex fugiat laboriosam laudantium maiores non odio odit officiis pariatur placeat, porro quaerat quibusdam quo quod ratione reiciendis sit sunt vitae? Cumque enim illo sapiente. Architecto culpa libero repellendus voluptatibus? Aliquid blanditiis, ducimus enim laudantium libero magnam, nostrum, obcaecati officia perspiciatis quam quidem ratione voluptas. Ab asperiores debitis dolores eius harum illo maiores nam quas vero voluptas! Aspernatur culpa debitis dolor doloremque dolores eveniet facere hic itaque laboriosam minima nihil nulla quae, quasi, tempore ullam. Earum, obcaecati, repellat! Alias beatae commodi debitis dicta eaque eos, esse, et ipsa iure minus nemo nesciunt nisi officia pariatur perferendis provident quaerat quisquam ratione recusandae reprehenderit repudiandae sed sit soluta unde veritatis vitae voluptatem voluptatum? Ab adipisci alias animi consequatur deleniti dicta dolor eos error facilis fugiat, hic ipsa laborum laudantium libero magnam minima nostrum, perferendis quis ratione sint voluptatem, voluptatibus?\n          </ion-col>\n        </ion-row>\n      </ion-grid>\n    </sr-content-card>\n  </sr-container>\n  <sr-footer></sr-footer>\n</sr-content>\n",
+                        template: "<lib-header></lib-header>\n\n<sr-content>\n  <sr-container noPadding=\"horizontal\">\n    <sr-content-card>\n      <ion-grid>\n        <ion-row>\n          <ion-col size=\"3\">\n            <lib-search-contacts\n              [control]=\"searchControl\"\n            ></lib-search-contacts>\n            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque\n            enim perferendis praesentium quas sint. Accusamus consequuntur\n            eaque, explicabo facere fugiat illo ipsa, ipsam labore libero nemo\n            nobis numquam quisquam sequi.\n          </ion-col>\n          <ion-col size=\"9\">\n            2222 Lorem ipsum dolor sit amet, consectetur adipisicing elit.\n            Aliquam animi architecto assumenda at beatae blanditiis consectetur\n            consequatur cum debitis delectus deleniti dolorem ducimus eaque esse\n            et, excepturi illo in ipsum iure libero, molestiae natus nesciunt\n            nobis nulla obcaecati officia placeat quae quibusdam quisquam\n            ratione reiciendis sapiente sed soluta totam veritatis voluptatibus\n            voluptatum? Accusantium amet asperiores assumenda beatae dicta dolor\n            dolore dolorum ducimus eligendi ex fugiat laboriosam laudantium\n            maiores non odio odit officiis pariatur placeat, porro quaerat\n            quibusdam quo quod ratione reiciendis sit sunt vitae? Cumque enim\n            illo sapiente. Architecto culpa libero repellendus voluptatibus?\n            Aliquid blanditiis, ducimus enim laudantium libero magnam, nostrum,\n            obcaecati officia perspiciatis quam quidem ratione voluptas. Ab\n            asperiores debitis dolores eius harum illo maiores nam quas vero\n            voluptas! Aspernatur culpa debitis dolor doloremque dolores eveniet\n            facere hic itaque laboriosam minima nihil nulla quae, quasi, tempore\n            ullam. Earum, obcaecati, repellat! Alias beatae commodi debitis\n            dicta eaque eos, esse, et ipsa iure minus nemo nesciunt nisi officia\n            pariatur perferendis provident quaerat quisquam ratione recusandae\n            reprehenderit repudiandae sed sit soluta unde veritatis vitae\n            voluptatem voluptatum? Ab adipisci alias animi consequatur deleniti\n            dicta dolor eos error facilis fugiat, hic ipsa laborum laudantium\n            libero magnam minima nostrum, perferendis quis ratione sint\n            voluptatem, voluptatibus?\n          </ion-col>\n        </ion-row>\n      </ion-grid>\n    </sr-content-card>\n  </sr-container>\n\n  <sr-footer></sr-footer>\n</sr-content>\n",
                         styles: [""]
                     }] }
         ];
@@ -143,7 +217,9 @@
      * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     var HeaderComponent = /** @class */ (function () {
-        function HeaderComponent() {
+        function HeaderComponent(sanitizer, router$$1) {
+            this.sanitizer = sanitizer;
+            this.router = router$$1;
             console.log('header');
         }
         /**
@@ -153,15 +229,44 @@
          * @return {?}
          */
             function () { };
+        /**
+         * @param {?} gradient
+         * @return {?}
+         */
+        HeaderComponent.prototype.style = /**
+         * @param {?} gradient
+         * @return {?}
+         */
+            function (gradient) {
+                /** @type {?} */
+                var colorStop1 = "var(" + gradient + ")";
+                /** @type {?} */
+                var colorStop2 = 'var(--sr-gradient-blue)';
+                return this.sanitizer.bypassSecurityTrustStyle("--color-stop-1: " + colorStop1 + "; --color-stop-2: " + colorStop2);
+            };
+        /**
+         * @return {?}
+         */
+        HeaderComponent.prototype.getRoot = /**
+         * @return {?}
+         */
+            function () {
+                this.router.navigate(['/']);
+            };
         HeaderComponent.decorators = [
             { type: i0.Component, args: [{
                         selector: 'lib-header',
-                        template: "<sr-header>\n  <sr-header-inner-block blockPosition=\"left\">\n    <sr-button buttonType=\"icon\" svgIcon=\"arrow-left\"></sr-button>\n    <sr-heading headingText=\"Contacts\" headingType=\"h1\"></sr-heading>\n  </sr-header-inner-block>\n\n  <sr-header-title>\n    <sr-icon class=\"notification-icon\" svgIcon=\"notifications-filled\" iconSize=\"36\"></sr-icon>\n  </sr-header-title>\n\n  <sr-header-inner-block blockPosition=\"right\">\n    <sr-menu\n      menuButtonType=\"icon\"\n      svgIcon=\"home\"\n      badgeContent=\"2\"\n      xPosition=\"before\"\n      yPosition=\"below\"\n      menuWidth=\"large\"\n    >\n      <sr-menu-body noPadding=\"true\">\n        <sr-notifications [data]=\"[{name: 'some', value: 1}]\"></sr-notifications>\n      </sr-menu-body>\n      <sr-button buttonType=\"additional\" [isBoxed]=\"true\" buttonText=\"Show all\"></sr-button>\n    </sr-menu>\n\n    <sr-menu menuButtonType=\"avatar\" xPosition=\"before\" yPosition=\"below\" avatarValue=\"y\">\n      <sr-menu-header class=\"main-menu-item\">\n        <sr-avatar [avatarSize]=\"48\" avatarValue=\"C\"></sr-avatar>\n        <sr-text>Codemotion</sr-text>\n      </sr-menu-header>\n      <sr-menu-footer itemsPosition=\"end\">\n        <sr-button buttonType=\"primary\" buttonText=\"Sign out\"></sr-button>\n      </sr-menu-footer>\n    </sr-menu>\n\n  </sr-header-inner-block>\n</sr-header>\n",
+                        template: "<sr-header>\n  <sr-header-inner-block blockPosition=\"left\">\n    <sr-button (clickHandler)=\"getRoot()\" buttonType=\"icon\" svgIcon=\"arrow-left\"></sr-button>\n    <sr-heading headingText=\"Contacts\" headingType=\"h1\"></sr-heading>\n  </sr-header-inner-block>\n\n  <sr-header-title>\n    <sr-icon\n      [style]=\"style('--sr-gradient-cyan')\"\n      svgIcon=\"ic-c\"\n      iconSize=\"36\"\n    ></sr-icon>\n  </sr-header-title>\n\n  <sr-header-inner-block blockPosition=\"right\">\n    <sr-menu\n      menuButtonType=\"icon\"\n      svgIcon=\"notifications\"\n      badgeContent=\"2\"\n      xPosition=\"before\"\n      yPosition=\"below\"\n      menuWidth=\"large\"\n    >\n      <sr-menu-body noPadding=\"true\">\n        <sr-notifications\n          [data]=\"[\n            {\n              text:\n                '<b>Michael Klein</b> has shared the <b>Werden Bau</b> project with you.',\n              time: '5h',\n              unread: true\n            },\n            {\n              text: 'You have a new message from <b>Andreas Kolt.</b>',\n              time: 'Yesterday',\n              unread: true\n            },\n            {\n              text:\n                '<b>Martina M\u00FCller</b> has shared the <b>Dogo Gartenbau</b> contact with you.',\n              time: 'May 27',\n              unread: true\n            },\n            {\n              text: 'You have joined to <b>Sorba Web Container</b>.',\n              time: 'January 5, 2018',\n              unread: false\n            }\n          ]\"\n        ></sr-notifications>\n      </sr-menu-body>\n      <sr-button\n        buttonType=\"additional\"\n        [isBoxed]=\"true\"\n        buttonText=\"Show all\"\n      ></sr-button>\n    </sr-menu>\n\n    <sr-menu\n      menuButtonType=\"avatar\"\n      xPosition=\"before\"\n      yPosition=\"below\"\n      avatarValue=\"y\"\n    >\n      <sr-menu-header class=\"main-menu-item\">\n        <sr-avatar [avatarSize]=\"48\" avatarValue=\"C\"></sr-avatar>\n        <sr-text>Codemotion</sr-text>\n      </sr-menu-header>\n      <sr-menu-footer itemsPosition=\"end\">\n        <sr-button buttonType=\"primary\" buttonText=\"Sign out\"></sr-button>\n      </sr-menu-footer>\n    </sr-menu>\n  </sr-header-inner-block>\n</sr-header>\n",
                         styles: [""]
                     }] }
         ];
         /** @nocollapse */
-        HeaderComponent.ctorParameters = function () { return []; };
+        HeaderComponent.ctorParameters = function () {
+            return [
+                { type: platformBrowser.DomSanitizer },
+                { type: router.Router }
+            ];
+        };
         return HeaderComponent;
     }());
 
@@ -187,8 +292,7 @@
         SearchContactsComponent.prototype.ngOnInit = /**
          * @return {?}
          */
-            function () {
-            };
+            function () { };
         /**
          * @param {?} text
          * @return {?}
@@ -203,7 +307,7 @@
         SearchContactsComponent.decorators = [
             { type: i0.Component, args: [{
                         selector: 'lib-search-contacts',
-                        template: "<sr-input-field\n  inputType=\"text\"\n  labelText=\"Search\"\n  (changeHandler)=\"inputChangeHandler($event)\"\n  [formControl]=\"control\"\n  [errorMessages]=\"null\"\n></sr-input-field>\n",
+                        template: "<sr-input-field\n  inputType=\"text\"\n  labelText=\"Search\"\n  [formControl]=\"control\"\n></sr-input-field>\n",
                         styles: [""]
                     }] }
         ];
@@ -224,10 +328,7 @@
         }
         SharedModule.decorators = [
             { type: i0.NgModule, args: [{
-                        imports: [
-                            sorbaUiComponents.SorbaUiComponentsModule,
-                            angular.IonicModule
-                        ],
+                        imports: [sorbaUiComponents.SorbaUiComponentsModule, angular.IonicModule],
                         exports: [
                             sorbaUiComponents.SorbaUiComponentsModule,
                             angular.IonicModule,
@@ -235,10 +336,7 @@
                             HeaderComponent,
                             SearchContactsComponent
                         ],
-                        declarations: [
-                            HeaderComponent,
-                            SearchContactsComponent
-                        ],
+                        declarations: [HeaderComponent, SearchContactsComponent]
                     },] }
         ];
         return SharedModule;
@@ -268,18 +366,9 @@
         }
         ContactsModule.decorators = [
             { type: i0.NgModule, args: [{
-                        declarations: [
-                            ContactsComponent,
-                            UsersComponent,
-                        ],
-                        exports: [
-                            ContactsComponent,
-                            UsersComponent,
-                        ],
-                        imports: [
-                            SharedModule,
-                            router.RouterModule.forChild(routes)
-                        ],
+                        declarations: [ContactsComponent, UsersComponent],
+                        exports: [ContactsComponent, UsersComponent],
+                        imports: [SharedModule, router.RouterModule.forChild(routes)],
                         providers: [ContactsService]
                     },] }
         ];
