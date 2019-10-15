@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@sorba-app/sorba-ui-components'), require('@ionic/angular'), require('@angular/common'), require('@angular/platform-browser'), require('@angular/router'), require('@angular/core'), require('rxjs'), require('rxjs/operators'), require('@angular/forms')) :
-    typeof define === 'function' && define.amd ? define('contacts', ['exports', '@sorba-app/sorba-ui-components', '@ionic/angular', '@angular/common', '@angular/platform-browser', '@angular/router', '@angular/core', 'rxjs', 'rxjs/operators', '@angular/forms'], factory) :
-    (factory((global.contacts = {}),global.sorbaUiComponents,global.angular,global.ng.common,global.ng.platformBrowser,global.ng.router,global.ng.core,global.rxjs,global.rxjs.operators,global.ng.forms));
-}(this, (function (exports,sorbaUiComponents,angular,common,platformBrowser,router,i0,rxjs,operators,forms) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@sorba-app/sorba-ui-components'), require('@ionic/angular'), require('@angular/common'), require('@angular/platform-browser'), require('@angular/router'), require('rxjs'), require('rxjs/operators'), require('@angular/core'), require('@angular/forms')) :
+    typeof define === 'function' && define.amd ? define('contacts', ['exports', '@sorba-app/sorba-ui-components', '@ionic/angular', '@angular/common', '@angular/platform-browser', '@angular/router', 'rxjs', 'rxjs/operators', '@angular/core', '@angular/forms'], factory) :
+    (factory((global.contacts = {}),global.sorbaUiComponents,global.angular,global.ng.common,global.ng.platformBrowser,global.ng.router,global.rxjs,global.rxjs.operators,global.ng.core,global.ng.forms));
+}(this, (function (exports,sorbaUiComponents,angular,common,platformBrowser,router,rxjs,operators,i0,forms) { 'use strict';
 
     /**
      * @fileoverview added by tsickle
@@ -10550,7 +10550,7 @@
             this.data = rxjs.of(( /** @type {?} */(data))); // todo dummy data
             // todo dummy data
             this.menuItems$ = new rxjs.BehaviorSubject(null);
-            this.activeContact = new rxjs.BehaviorSubject(null);
+            this.activeContact$ = new rxjs.BehaviorSubject(null);
             this.searchList$ = new rxjs.BehaviorSubject([]);
             this.searchText = '';
             this.uploadData();
@@ -10564,7 +10564,7 @@
          * @return {?}
          */
             function (item) {
-                this.activeContact.next(item);
+                this.activeContact$.next(item);
             };
         /**
          * @param {?} text
@@ -10600,6 +10600,8 @@
              */function (contacts) {
                     _this.contactsList = contacts;
                     _this.contactsCopy = contacts;
+                    // select first item
+                    _this.selectFirstContact(contacts);
                 }));
             };
         /**
@@ -10701,10 +10703,25 @@
                     return Object.assign(item, menuItem);
                 })));
             };
+        /**
+         * @private
+         * @param {?} contacts
+         * @return {?}
+         */
+        ContactsComponent.prototype.selectFirstContact = /**
+         * @private
+         * @param {?} contacts
+         * @return {?}
+         */
+            function (contacts) {
+                if (contacts && contacts.length && contacts[0].groupData.length) {
+                    this.selectContactItem(contacts[0].groupData[0]);
+                }
+            };
         ContactsComponent.decorators = [
             { type: i0.Component, args: [{
                         selector: 'lib-contacts',
-                        template: "<lib-header></lib-header>\n\n<sr-content>\n  <sr-container noPadding=\"horizontal-top\">\n    <sr-content-card class=\"contacts-container\">\n      <div class=\"left-panel\">\n        <header class=\"panel-header\">\n          <div class=\"top-block\">\n            <lib-selected-menu\n              [items]=\"menuItems$ | async\"\n              (selectedEvent)=\"filterByMenu($event)\"\n            ></lib-selected-menu>\n            <sr-button\n              buttonType=\"icon\"\n              svgIcon=\"contact-add\"\n              class=\"contact-add\"\n            ></sr-button>\n          </div>\n\n          <!-- search contacts -->\n          <lib-search-contacts\n            [searchList]=\"searchList$ | async\"\n            (searchEvent)=\"searchEvent($event)\"\n          ></lib-search-contacts>\n        </header>\n\n        <sr-contacts-list\n          *ngIf=\"!searchText.length\"\n          [data]=\"contactsList\"\n          scrollContainerMaxHeight=\"500px\"\n          [windowWidth]=\"windowWidth\"\n          [activeItemId]=\"(activeContact | async)?.id\"\n          (itemClickHandler)=\"selectContactItem($event)\"\n        ></sr-contacts-list>\n      </div>\n\n      <div class=\"right-panel\">\n        <!--        {{ activeContact | async | json }}-->\n        <header class=\"panel-header\">\n          <div class=\"contact-base-info\">\n            <sr-avatar\n              avatarValue=\"A\"\n              [avatarSize]=\"windowWidth < 768 ? 36 : 40\"\n            ></sr-avatar>\n            <sr-heading\n              headingText=\"Architektur G+L, LLCArchitektur G+L, LLC\"\n            ></sr-heading>\n          </div>\n          <div class=\"contact-actions\" *ngIf=\"windowWidth < 768\">\n            <sr-menu\n              menuButtonType=\"icon\"\n              svgIcon=\"more-vertical\"\n              class=\"contact-actions\"\n            >\n              <sr-menu-item\n                [hasCheckMark]=\"true\"\n                itemsPosition=\"between\"\n                class=\"contact-action\"\n              >\n                <sr-icon svgIcon=\"export\"></sr-icon>\n                <sr-text>Export</sr-text>\n              </sr-menu-item>\n              <sr-menu-item\n                [hasCheckMark]=\"true\"\n                itemsPosition=\"between\"\n                class=\"contact-action\"\n              >\n                <sr-icon svgIcon=\"print\"></sr-icon>\n                <sr-text>Print</sr-text>\n              </sr-menu-item>\n              <sr-menu-item\n                [hasCheckMark]=\"true\"\n                itemsPosition=\"between\"\n                class=\"contact-action\"\n              >\n                <sr-icon svgIcon=\"edit\"></sr-icon>\n                <sr-text>Edit</sr-text>\n              </sr-menu-item>\n              <sr-menu-item [hasCheckMark]=\"true\" class=\"contact-action\">\n                <sr-icon svgIcon=\"delete\"></sr-icon>\n                <sr-text>Delete</sr-text>\n              </sr-menu-item>\n            </sr-menu>\n          </div>\n          <div class=\"contact-actions\" *ngIf=\"windowWidth > 767\">\n            <sr-button buttonType=\"icon\" svgIcon=\"print\"></sr-button>\n            <sr-button buttonType=\"icon\" svgIcon=\"print\"></sr-button>\n            <sr-button buttonType=\"icon\" svgIcon=\"edit\"></sr-button>\n            <sr-button buttonType=\"icon\" svgIcon=\"delete\"></sr-button>\n            <span class=\"divider\"></span>\n            <sr-button\n              buttonType=\"icon\"\n              svgIcon=\"three-column-view\"\n            ></sr-button>\n          </div>\n        </header>\n        <sr-scroll-container\n          maxHeight=\"500px\"\n          [scrollIndicators]=\"true\"\n          indicatorPosition=\"bottom\"\n        >\n          <div class=\"info-section\">\n            <sr-heading\n              headingText=\"Contact Details\"\n              headingType=\"h3\"\n            ></sr-heading>\n            <ul class=\"info-list\">\n              <li class=\"info-list-item\">\n                <div class=\"cell label\">Business number</div>\n                <div class=\"cell value\">\n                  <sr-text>+41 71 224 0000</sr-text>\n                </div>\n              </li>\n              <li class=\"info-list-item\">\n                <div class=\"cell label\">Mobile number</div>\n                <div class=\"cell value\">\n                  <sr-text>+41 79 456 4577</sr-text>\n                </div>\n              </li>\n              <li class=\"info-list-item\">\n                <div class=\"cell label\">Email</div>\n                <div class=\"cell value\">\n                  <sr-text>muster.mandant@sorba.ch</sr-text>\n                </div>\n              </li>\n              <li class=\"info-list-item\">\n                <div class=\"cell label\">Website</div>\n                <div class=\"cell value\">\n                  <sr-text>https://www.sorba.ch</sr-text>\n                </div>\n              </li>\n              <li class=\"info-list-item\">\n                <div class=\"cell label\">Address</div>\n                <div class=\"cell value\">\n                  <sr-text>Rorschacherstrasse 23,</sr-text>\n                  <sr-text> 9320 Arbon,</sr-text>\n                  <sr-text> P.O. box 255</sr-text>\n                </div>\n              </li>\n            </ul>\n            <div class=\"map-container\">\n              map here\n            </div>\n          </div>\n        </sr-scroll-container>\n      </div>\n    </sr-content-card>\n  </sr-container>\n\n  <sr-footer></sr-footer>\n</sr-content>\n",
+                        template: "<lib-header></lib-header>\n\n<sr-content>\n  <sr-container noPadding=\"horizontal-top\">\n    <sr-content-card class=\"contacts-container\">\n      <div class=\"left-panel\">\n        <header class=\"panel-header\">\n          <div class=\"top-block\">\n            <lib-selected-menu\n              [items]=\"menuItems$ | async\"\n              (selectedEvent)=\"filterByMenu($event)\"\n            ></lib-selected-menu>\n            <sr-button\n              buttonType=\"icon\"\n              svgIcon=\"contact-add\"\n              class=\"contact-add\"\n            ></sr-button>\n          </div>\n\n          <!-- search contacts -->\n          <lib-search-contacts\n            [searchList]=\"searchList$ | async\"\n            (searchEvent)=\"searchEvent($event)\"\n            (selectContactItem)=\"selectContactItem($event)\"\n          ></lib-search-contacts>\n        </header>\n\n        <sr-contacts-list\n          *ngIf=\"!searchText.length\"\n          [data]=\"contactsList\"\n          scrollContainerMaxHeight=\"500px\"\n          [windowWidth]=\"windowWidth\"\n          [activeItemId]=\"(activeContact$ | async)?.id\"\n          (itemClickHandler)=\"selectContactItem($event)\"\n        ></sr-contacts-list>\n      </div>\n      <!-- user details column-->\n      <div class=\"right-panel\">\n        <lib-contact-detail\n          [activeContact]=\"activeContact$ | async\"\n        ></lib-contact-detail>\n      </div>\n    </sr-content-card>\n  </sr-container>\n\n  <sr-footer></sr-footer>\n</sr-content>\n",
                         styles: [""]
                     }] }
         ];
@@ -10877,6 +10894,7 @@
             var _this = this;
             this.contactsHelper = contactsHelper;
             this.searchEvent = new i0.EventEmitter();
+            this.selectContactItem = new i0.EventEmitter();
             this.search = new forms.FormControl('');
             this.subject = new rxjs.Subject();
             this.search.valueChanges.pipe(operators.takeUntil(this.subject)).subscribe(( /**
@@ -10908,6 +10926,17 @@
             function () {
                 this.subject.next();
                 this.subject.complete();
+            };
+        /**
+         * @param {?} contact
+         * @return {?}
+         */
+        SearchContactsComponent.prototype.selectContact = /**
+         * @param {?} contact
+         * @return {?}
+         */
+            function (contact) {
+                this.selectContactItem.emit(contact);
             };
         /**
          * @return {?}
@@ -10970,7 +10999,7 @@
         SearchContactsComponent.decorators = [
             { type: i0.Component, args: [{
                         selector: 'lib-search-contacts',
-                        template: "<div class=\"bottom-block\">\n  <div class=\"search-field\">\n    <div class=\"input-wrapper\">\n      <sr-icon svgIcon=\"search\" class=\"search-icon\"></sr-icon>\n      <input type=\"search\" placeholder=\"Search\" [formControl]=\"search\" />\n      <sr-button\n        *ngIf=\"search.value.length\"\n        buttonType=\"icon\"\n        svgIcon=\"cross\"\n        (clickHandler)=\"clearInput()\"\n      ></sr-button>\n    </div>\n\n    <div *ngIf=\"search.value.length\" class=\"search-result\" #searchContent>\n      <sr-scroll-container\n        maxHeight=\"500px\"\n        [scrollIndicators]=\"true\"\n        indicatorPosition=\"bottom\"\n      >\n        <ng-container *ngIf=\"searchList.length; else notFount\">\n          <sr-contact-item\n            *ngFor=\"let list of searchList\"\n            [data]=\"list\"\n          ></sr-contact-item>\n        </ng-container>\n\n        <ng-template #notFount>No match data ...</ng-template>\n      </sr-scroll-container>\n    </div>\n  </div>\n</div>\n",
+                        template: "<div class=\"bottom-block\">\n  <div class=\"search-field\">\n    <div class=\"input-wrapper\">\n      <sr-icon svgIcon=\"search\" class=\"search-icon\"></sr-icon>\n      <input type=\"search\" placeholder=\"Search\" [formControl]=\"search\" />\n      <sr-button\n        *ngIf=\"search.value.length\"\n        buttonType=\"icon\"\n        svgIcon=\"cross\"\n        (clickHandler)=\"clearInput()\"\n      ></sr-button>\n    </div>\n\n    <div *ngIf=\"search.value.length\" class=\"search-result\" #searchContent>\n      <sr-scroll-container\n        maxHeight=\"500px\"\n        [scrollIndicators]=\"true\"\n        indicatorPosition=\"bottom\"\n      >\n        <ng-container *ngIf=\"searchList.length; else notFount\">\n          <sr-contact-item\n            (click)=\"selectContact(contact)\"\n            *ngFor=\"let contact of searchList\"\n            [data]=\"contact\"\n          ></sr-contact-item>\n        </ng-container>\n\n        <ng-template #notFount>No match data ...</ng-template>\n      </sr-scroll-container>\n    </div>\n  </div>\n</div>\n",
                         styles: [""]
                     }] }
         ];
@@ -10983,9 +11012,92 @@
         SearchContactsComponent.propDecorators = {
             searchContent: [{ type: i0.ViewChild, args: ['searchContent',] }],
             searchList: [{ type: i0.Input }],
-            searchEvent: [{ type: i0.Output }]
+            searchEvent: [{ type: i0.Output }],
+            selectContactItem: [{ type: i0.Output }]
         };
         return SearchContactsComponent;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    var ContactDetailComponent = /** @class */ (function () {
+        function ContactDetailComponent() {
+        }
+        /**
+         * @param {?} field
+         * @return {?}
+         */
+        ContactDetailComponent.prototype.getField = /**
+         * @param {?} field
+         * @return {?}
+         */
+            function (field) {
+                return field && field.length ? field : ' - ';
+            };
+        ContactDetailComponent.decorators = [
+            { type: i0.Component, args: [{
+                        selector: 'lib-contact-detail',
+                        template: "<lib-contact-actions [fullName]=\"activeContact?.text\"></lib-contact-actions>\n\n<sr-scroll-container\n  maxHeight=\"500px\"\n  [scrollIndicators]=\"true\"\n  indicatorPosition=\"bottom\"\n>\n  <div class=\"info-section\">\n    <sr-heading headingText=\"Contact Details\" headingType=\"h3\"></sr-heading>\n\n    <ul class=\"info-list\">\n      <li class=\"info-list-item\">\n        <div class=\"cell label\">Business number</div>\n        <div class=\"cell value\">\n          <sr-text>+41 71 224 0000</sr-text>\n        </div>\n      </li>\n      <li class=\"info-list-item\">\n        <div class=\"cell label\">Mobile number</div>\n        <div class=\"cell value\">\n          <sr-text>+41 79 456 4577</sr-text>\n        </div>\n      </li>\n      <li class=\"info-list-item\">\n        <div class=\"cell label\">Email</div>\n        <div class=\"cell value\">\n          <sr-text>{{ getField(activeContact?.EMAIL) }}</sr-text>\n        </div>\n      </li>\n      <li class=\"info-list-item\">\n        <div class=\"cell label\">Website</div>\n        <div class=\"cell value\">\n          <sr-text>{{ getField(activeContact?.WWW) }}</sr-text>\n        </div>\n      </li>\n      <li class=\"info-list-item\">\n        <div class=\"cell label\">Address</div>\n        <div class=\"cell value\">\n          <sr-text>Rorschacherstrasse 23,</sr-text>\n          <sr-text> 9320 Arbon,</sr-text>\n          <sr-text> P.O. box 255</sr-text>\n        </div>\n      </li>\n    </ul>\n    <div class=\"map-container\">\n      map here\n    </div>\n  </div>\n</sr-scroll-container>\n",
+                        styles: [""]
+                    }] }
+        ];
+        /** @nocollapse */
+        ContactDetailComponent.ctorParameters = function () { return []; };
+        ContactDetailComponent.propDecorators = {
+            activeContact: [{ type: i0.Input }]
+        };
+        return ContactDetailComponent;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    var ContactActionsComponent = /** @class */ (function () {
+        function ContactActionsComponent() {
+        }
+        Object.defineProperty(ContactActionsComponent.prototype, "avatarSize", {
+            get: /**
+             * @return {?}
+             */ function () {
+                return window.innerWidth < 768 ? 36 : 40;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(ContactActionsComponent.prototype, "showContact", {
+            get: /**
+             * @return {?}
+             */ function () {
+                return window.innerWidth < 768;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(ContactActionsComponent.prototype, "showActions", {
+            get: /**
+             * @return {?}
+             */ function () {
+                return window.innerWidth > 767;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        ContactActionsComponent.decorators = [
+            { type: i0.Component, args: [{
+                        selector: 'lib-contact-actions',
+                        template: "<header class=\"panel-header\">\n  <div class=\"contact-base-info\">\n    <sr-avatar\n      [avatarValue]=\"fullName[0]\"\n      [avatarSize]=\"avatarSize\"\n    ></sr-avatar>\n    <sr-heading [headingText]=\"fullName\"></sr-heading>\n  </div>\n\n  <div class=\"contact-actions\" *ngIf=\"showContact\">\n    <sr-menu\n      menuButtonType=\"icon\"\n      svgIcon=\"more-vertical\"\n      class=\"contact-actions\"\n    >\n      <sr-menu-item\n        [hasCheckMark]=\"true\"\n        itemsPosition=\"between\"\n        class=\"contact-action\"\n      >\n        <sr-icon svgIcon=\"export\"></sr-icon>\n        <sr-text>Export</sr-text>\n      </sr-menu-item>\n      <sr-menu-item\n        [hasCheckMark]=\"true\"\n        itemsPosition=\"between\"\n        class=\"contact-action\"\n      >\n        <sr-icon svgIcon=\"print\"></sr-icon>\n        <sr-text>Print</sr-text>\n      </sr-menu-item>\n      <sr-menu-item\n        [hasCheckMark]=\"true\"\n        itemsPosition=\"between\"\n        class=\"contact-action\"\n      >\n        <sr-icon svgIcon=\"edit\"></sr-icon>\n        <sr-text>Edit</sr-text>\n      </sr-menu-item>\n      <sr-menu-item [hasCheckMark]=\"true\" class=\"contact-action\">\n        <sr-icon svgIcon=\"delete\"></sr-icon>\n        <sr-text>Delete</sr-text>\n      </sr-menu-item>\n    </sr-menu>\n  </div>\n\n  <div class=\"contact-actions\" *ngIf=\"showActions\">\n    <sr-button buttonType=\"icon\" svgIcon=\"print\"></sr-button>\n    <sr-button buttonType=\"icon\" svgIcon=\"print\"></sr-button>\n    <sr-button buttonType=\"icon\" svgIcon=\"edit\"></sr-button>\n    <sr-button buttonType=\"icon\" svgIcon=\"delete\"></sr-button>\n    <span class=\"divider\"></span>\n    <sr-button buttonType=\"icon\" svgIcon=\"three-column-view\"></sr-button>\n  </div>\n</header>\n",
+                        styles: [""]
+                    }] }
+        ];
+        /** @nocollapse */
+        ContactActionsComponent.ctorParameters = function () { return []; };
+        ContactActionsComponent.propDecorators = {
+            fullName: [{ type: i0.Input }]
+        };
+        return ContactActionsComponent;
     }());
 
     /**
@@ -11015,12 +11127,16 @@
                             forms.ReactiveFormsModule,
                             HeaderComponent,
                             SearchContactsComponent,
-                            SelectedMenuComponent
+                            SelectedMenuComponent,
+                            ContactDetailComponent,
+                            ContactActionsComponent
                         ],
                         declarations: [
                             HeaderComponent,
                             SearchContactsComponent,
-                            SelectedMenuComponent
+                            SelectedMenuComponent,
+                            ContactDetailComponent,
+                            ContactActionsComponent
                         ],
                         providers: [ContactsHelper]
                     },] }
@@ -11071,6 +11187,8 @@
      */
 
     exports.ContactsModule = ContactsModule;
+    exports.ɵi = ContactActionsComponent;
+    exports.ɵh = ContactDetailComponent;
     exports.ɵe = HeaderComponent;
     exports.ɵf = SearchContactsComponent;
     exports.ɵg = SelectedMenuComponent;
