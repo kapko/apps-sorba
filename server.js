@@ -11037,10 +11037,26 @@
             function (field) {
                 return field && field.length ? field : ' - ';
             };
+        /**
+         * @param {?} field
+         * @param {?=} symbol
+         * @return {?}
+         */
+        ContactDetailComponent.prototype.getAddress = /**
+         * @param {?} field
+         * @param {?=} symbol
+         * @return {?}
+         */
+            function (field, symbol) {
+                if (symbol === void 0) {
+                    symbol = ',';
+                }
+                return field && field.length ? "" + field + (symbol ? symbol : '') : '';
+            };
         ContactDetailComponent.decorators = [
             { type: i0.Component, args: [{
                         selector: 'lib-contact-detail',
-                        template: "<lib-contact-actions [fullName]=\"activeContact?.text\"></lib-contact-actions>\n\n<sr-scroll-container\n  maxHeight=\"500px\"\n  [scrollIndicators]=\"true\"\n  indicatorPosition=\"bottom\"\n>\n  <div class=\"info-section\">\n    <sr-heading headingText=\"Contact Details\" headingType=\"h3\"></sr-heading>\n\n    <ul class=\"info-list\">\n      <li class=\"info-list-item\">\n        <div class=\"cell label\">Business number</div>\n        <div class=\"cell value\">\n          <sr-text>+41 71 224 0000</sr-text>\n        </div>\n      </li>\n      <li class=\"info-list-item\">\n        <div class=\"cell label\">Mobile number</div>\n        <div class=\"cell value\">\n          <sr-text>+41 79 456 4577</sr-text>\n        </div>\n      </li>\n      <li class=\"info-list-item\">\n        <div class=\"cell label\">Email</div>\n        <div class=\"cell value\">\n          <sr-text>{{ getField(activeContact?.EMAIL) }}</sr-text>\n        </div>\n      </li>\n      <li class=\"info-list-item\">\n        <div class=\"cell label\">Website</div>\n        <div class=\"cell value\">\n          <sr-text>{{ getField(activeContact?.WWW) }}</sr-text>\n        </div>\n      </li>\n      <li class=\"info-list-item\">\n        <div class=\"cell label\">Address</div>\n        <div class=\"cell value\">\n          <sr-text>Rorschacherstrasse 23,</sr-text>\n          <sr-text> 9320 Arbon,</sr-text>\n          <sr-text> P.O. box 255</sr-text>\n        </div>\n      </li>\n    </ul>\n    <div class=\"map-container\">\n      map here\n    </div>\n  </div>\n</sr-scroll-container>\n",
+                        template: "<lib-contact-actions [fullName]=\"activeContact?.text\"></lib-contact-actions>\n\n<sr-scroll-container\n  maxHeight=\"500px\"\n  [scrollIndicators]=\"true\"\n  indicatorPosition=\"bottom\"\n>\n  <div class=\"info-section\">\n    <sr-heading headingText=\"Contact Details\" headingType=\"h3\"></sr-heading>\n\n    <ul class=\"info-list\">\n      <li class=\"info-list-item\">\n        <div class=\"cell label\">Business number</div>\n        <div class=\"cell value\">\n          <sr-text>{{ getField(activeContact?.GTELEFON) }}</sr-text>\n        </div>\n      </li>\n      <li class=\"info-list-item\">\n        <div class=\"cell label\">Mobile number</div>\n        <div class=\"cell value\">\n          <sr-text>{{ getField(activeContact?.NATEL) }}</sr-text>\n        </div>\n      </li>\n      <li class=\"info-list-item\">\n        <div class=\"cell label\">Email</div>\n        <div class=\"cell value\">\n          <sr-text>{{ getField(activeContact?.EMAIL) }}</sr-text>\n        </div>\n      </li>\n      <li class=\"info-list-item\">\n        <div class=\"cell label\">Website</div>\n        <div class=\"cell value\">\n          <sr-text>{{ getField(activeContact?.WWW) }}</sr-text>\n        </div>\n      </li>\n      <li class=\"info-list-item\">\n        <div class=\"cell label\">Address</div>\n        <div class=\"cell value\">\n          <sr-text>{{ getAddress(activeContact?.STRASSE) }}</sr-text>\n          <sr-text>{{ getAddress(activeContact?.PLZ) }}</sr-text>\n          <sr-text>{{ getAddress(activeContact?.ORT, null) }}</sr-text>\n          <sr-text>{{ getAddress(activeContact?.POSTFACH, null) }}</sr-text>\n        </div>\n      </li>\n    </ul>\n    <div class=\"map-container\">\n      map here\n    </div>\n  </div>\n</sr-scroll-container>\n",
                         styles: [""]
                     }] }
         ];
