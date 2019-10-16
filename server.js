@@ -178,60 +178,60 @@
         {
             menuItemIcon: 'contact',
             menuItemName: 'Contact list',
-            menuItemLink: '#/watcher/contacts',
+            menuItemLink: '#/contacts/contact',
             subMenu: []
         },
         {
             menuItemIcon: 'outlook',
             menuItemName: 'Outlook export',
-            menuItemLink: '#/watcher/contacts',
+            menuItemLink: '#/contacts/contact',
             subMenu: []
         },
         {
             menuItemIcon: 'report',
             menuItemName: 'Reports',
-            menuItemLink: '#/watcher/contacts',
+            menuItemLink: '#/contacts/contact',
             subMenu: [
                 {
                     subMenuItemName: 'Number ranges',
-                    subMenuItemLink: '#/watcher/contacts'
+                    subMenuItemLink: '#/contacts/contact'
                 },
                 {
                     subMenuItemName: 'Default values',
-                    subMenuItemLink: '#/watcher/contacts'
+                    subMenuItemLink: '#/contacts/contact'
                 },
                 {
                     subMenuItemName: 'Address import',
-                    subMenuItemLink: '#/watcher/contacts'
+                    subMenuItemLink: '#/contacts/contact'
                 }
             ]
         },
         {
             menuItemIcon: 'mutations',
             menuItemName: 'Global mutations',
-            menuItemLink: '#/watcher/contacts',
+            menuItemLink: '#/contacts/contact',
             subMenu: []
         },
         {
             menuItemIcon: 'settings-filled',
             menuItemName: 'Settings',
-            menuItemLink: '#/watcher/contacts',
+            menuItemLink: '#/contacts/contact',
             subMenu: [
                 {
                     subMenuItemName: 'Number ranges',
-                    subMenuItemLink: '#/watcher/contacts'
+                    subMenuItemLink: '#/contacts/contact'
                 },
                 {
                     subMenuItemName: 'Default values',
-                    subMenuItemLink: '#/watcher/contacts'
+                    subMenuItemLink: '#/contacts/contact'
                 },
                 {
                     subMenuItemName: 'Address import',
-                    subMenuItemLink: '#/watcher/contacts'
+                    subMenuItemLink: '#/contacts/contact'
                 },
                 {
                     subMenuItemName: 'Subdivisions',
-                    subMenuItemLink: '#/watcher/contacts'
+                    subMenuItemLink: '#/contacts/contact'
                 }
             ]
         }
@@ -10749,7 +10749,7 @@
                             menuItem = { count: users.companyCount };
                             break;
                         default:
-                            menuItem = { count: users.contacts.length, active: true };
+                            menuItem = { count: users.contacts.length };
                     }
                     return Object.assign(item, menuItem);
                 })));
@@ -10918,10 +10918,12 @@
             this.selectContactItem = new i0.EventEmitter();
             this.search = new forms.FormControl('');
             this.subject = new rxjs.Subject();
-            this.search.valueChanges.pipe(operators.takeUntil(this.subject)).subscribe(( /**
-             * @param {?} text
-             * @return {?}
-             */function (text) {
+            this.search.valueChanges
+                .pipe(operators.takeUntil(this.subject), operators.debounceTime(400))
+                .subscribe(( /**
+         * @param {?} text
+         * @return {?}
+         */function (text) {
                 _this.searchEvent.emit(text);
                 _this.searchContact(text);
                 _this.searchList = _this.contactsHelper.searchBySymbol(_this.searchListCopy, text);
@@ -11085,7 +11087,7 @@
             { type: i0.Component, args: [{
                         selector: 'lib-contact-detail',
                         template: "<lib-contact-actions\n  [fullName]=\"(activeContact$ | async)?.text\"\n></lib-contact-actions>\n\n<sr-scroll-container\n  maxHeight=\"500px\"\n  [scrollIndicators]=\"true\"\n  indicatorPosition=\"bottom\"\n>\n  <div class=\"info-section\">\n    <sr-heading headingText=\"Contact Details\" headingType=\"h3\"></sr-heading>\n\n    <ul class=\"info-list\">\n      <li class=\"info-list-item\">\n        <div class=\"cell label\">Business number</div>\n        <div class=\"cell value\">\n          <sr-text>{{ getField((activeContact$ | async)?.GTELEFON) }}</sr-text>\n        </div>\n      </li>\n      <li class=\"info-list-item\">\n        <div class=\"cell label\">Mobile number</div>\n        <div class=\"cell value\">\n          <sr-text>{{ getField((activeContact$ | async)?.NATEL) }}</sr-text>\n        </div>\n      </li>\n      <li class=\"info-list-item\">\n        <div class=\"cell label\">Email</div>\n        <div class=\"cell value\">\n          <sr-text>{{ getField((activeContact$ | async)?.EMAIL) }}</sr-text>\n        </div>\n      </li>\n      <li class=\"info-list-item\">\n        <div class=\"cell label\">Website</div>\n        <div class=\"cell value\">\n          <sr-text>{{ getField((activeContact$ | async)?.WWW) }}</sr-text>\n        </div>\n      </li>\n      <li class=\"info-list-item\">\n        <div class=\"cell label\">Address</div>\n        <div class=\"cell value\">\n          <sr-text>{{ getAddress((activeContact$ | async)?.STRASSE) }}</sr-text>\n          <sr-text>{{ getAddress((activeContact$ | async)?.PLZ) }}</sr-text>\n          <sr-text>{{\n            getAddress((activeContact$ | async)?.ORT, null)\n          }}</sr-text>\n          <sr-text>{{\n            getAddress((activeContact$ | async)?.POSTFACH, null)\n          }}</sr-text>\n        </div>\n      </li>\n    </ul>\n    <div class=\"map-container\">\n      map here\n    </div>\n  </div>\n</sr-scroll-container>\n",
-                        styles: [""]
+                        styles: [".info-section{background:#fff}"]
                     }] }
         ];
         /** @nocollapse */
