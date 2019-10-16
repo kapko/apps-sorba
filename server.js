@@ -10663,7 +10663,9 @@
                     return _this.contactsHelper.filterByType(contact.type, menuItem.type);
                 }));
                 this.contactsList.next(contacts);
-                this.selectFirstContact(contacts);
+                if (!this.isSmallerThenTable) {
+                    this.selectFirstContact(contacts);
+                }
             };
         /**
          * @private
