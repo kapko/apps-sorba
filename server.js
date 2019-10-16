@@ -135,6 +135,15 @@
      * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     /** @enum {string} */
+    var EContactPath = {
+        contacts: 'contacts',
+        contact: 'contact',
+    };
+    /** @enum {string} */
+    var EContactTitles = {
+        contacts: 'Contacts',
+    };
+    /** @enum {string} */
     var EContactType = {
         user: 'user',
         company: 'company',
@@ -241,7 +250,7 @@
         function ContactsHelper() {
             this.activeContact = new rxjs.BehaviorSubject(null);
             this.headerData = new rxjs.BehaviorSubject({
-                title: 'Contacts',
+                title: EContactTitles.contacts,
                 path: '/'
             });
         }
@@ -10589,6 +10598,10 @@
             this.isSmallerThenTable = window.innerWidth < 768;
             this.searchText = '';
             this.uploadData();
+            this.contactsHelper.headerData.next({
+                title: EContactTitles.contacts,
+                path: '/'
+            });
         }
         /**
          * @param {?} item
@@ -10604,7 +10617,7 @@
                         this.activeContact$.next(item);
                         this.contactsHelper.activeContact.next(item);
                         if (this.isSmallerThenTable) {
-                            this.router.navigate(["/watcher/" + item.id]);
+                            this.router.navigate(["/" + EContactPath.contacts + "/" + item.id]);
                         }
                         return [2 /*return*/];
                     });
@@ -11037,7 +11050,7 @@
             this.contactHelper = contactHelper;
             this.activeContact$ = this.contactHelper.activeContact;
             this.contactHelper.headerData.next({
-                path: '/watcher/root/contact',
+                path: "/" + EContactPath.contacts + "/" + EContactPath.contact,
                 title: ''
             });
         }
