@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/material/dialog'), require('@sorba-app/sorba-ui-components'), require('@ionic/angular'), require('@angular/common'), require('@angular/platform-browser'), require('@angular/router'), require('rxjs'), require('rxjs/operators'), require('@angular/forms'), require('@angular/core')) :
-    typeof define === 'function' && define.amd ? define('contacts', ['exports', '@angular/material/dialog', '@sorba-app/sorba-ui-components', '@ionic/angular', '@angular/common', '@angular/platform-browser', '@angular/router', 'rxjs', 'rxjs/operators', '@angular/forms', '@angular/core'], factory) :
-    (factory((global.contacts = {}),global.ng.material.dialog,global.sorbaUiComponents,global.angular,global.ng.common,global.ng.platformBrowser,global.ng.router,global.rxjs,global.rxjs.operators,global.ng.forms,global.ng.core));
-}(this, (function (exports,dialog,sorbaUiComponents,angular,common,platformBrowser,router,rxjs,operators,forms,i0) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@sorba-app/sorba-ui-components'), require('@ionic/angular'), require('@angular/common'), require('@angular/platform-browser'), require('@angular/router'), require('rxjs'), require('rxjs/operators'), require('@angular/forms'), require('@angular/core')) :
+    typeof define === 'function' && define.amd ? define('contacts', ['exports', '@sorba-app/sorba-ui-components', '@ionic/angular', '@angular/common', '@angular/platform-browser', '@angular/router', 'rxjs', 'rxjs/operators', '@angular/forms', '@angular/core'], factory) :
+    (factory((global.contacts = {}),global.sorbaUiComponents,global.angular,global.ng.common,global.ng.platformBrowser,global.ng.router,global.rxjs,global.rxjs.operators,global.ng.forms,global.ng.core));
+}(this, (function (exports,sorbaUiComponents,angular,common,platformBrowser,router,rxjs,operators,forms,i0) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
@@ -10575,10 +10575,9 @@
      * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     var ContactsComponent = /** @class */ (function () {
-        function ContactsComponent(contactsHelper, router$$1, dialog$$1) {
+        function ContactsComponent(contactsHelper, router$$1) {
             this.contactsHelper = contactsHelper;
             this.router = router$$1;
-            this.dialog = dialog$$1;
             this.windowWidth = window.innerWidth;
             this.menuData = menu;
             // observables
@@ -10767,8 +10766,7 @@
         ContactsComponent.ctorParameters = function () {
             return [
                 { type: ContactsHelper },
-                { type: router.Router },
-                { type: dialog.MatDialog }
+                { type: router.Router }
             ];
         };
         return ContactsComponent;
