@@ -10604,7 +10604,7 @@
                         this.activeContact$.next(item);
                         this.contactsHelper.activeContact.next(item);
                         if (this.isSmallerThenTable) {
-                            this.router.navigate(["/watcher/root/" + item.id]);
+                            this.router.navigate(["/watcher/" + item.id]);
                         }
                         return [2 /*return*/];
                     });
@@ -10974,30 +10974,32 @@
                      * @return {?}
                      */function () {
                         var e_1, _a;
-                        /** @type {?} */
-                        var content = _this.searchContent.nativeElement.getElementsByClassName('info-field');
-                        if (content.length) {
+                        if (_this.searchContent && _this.searchContent.nativeElement) {
                             /** @type {?} */
-                            var key = void 0;
-                            try {
-                                for (var content_1 = __values(content), content_1_1 = content_1.next(); !content_1_1.done; content_1_1 = content_1.next()) {
-                                    key = content_1_1.value;
-                                    /** @type {?} */
-                                    var newText = key.textContent.replace(regex_1, "<span class=\"highlight\">" + text + "</span>");
-                                    key.innerHTML = newText;
-                                }
-                            }
-                            catch (e_1_1) {
-                                e_1 = { error: e_1_1 };
-                            }
-                            finally {
+                            var content = _this.searchContent.nativeElement.getElementsByClassName('info-field');
+                            if (content.length) {
+                                /** @type {?} */
+                                var key = void 0;
                                 try {
-                                    if (content_1_1 && !content_1_1.done && (_a = content_1.return))
-                                        _a.call(content_1);
+                                    for (var content_1 = __values(content), content_1_1 = content_1.next(); !content_1_1.done; content_1_1 = content_1.next()) {
+                                        key = content_1_1.value;
+                                        /** @type {?} */
+                                        var newText = key.textContent.replace(regex_1, "<span class=\"highlight\">" + text + "</span>");
+                                        key.innerHTML = newText;
+                                    }
+                                }
+                                catch (e_1_1) {
+                                    e_1 = { error: e_1_1 };
                                 }
                                 finally {
-                                    if (e_1)
-                                        throw e_1.error;
+                                    try {
+                                        if (content_1_1 && !content_1_1.done && (_a = content_1.return))
+                                            _a.call(content_1);
+                                    }
+                                    finally {
+                                        if (e_1)
+                                            throw e_1.error;
+                                    }
                                 }
                             }
                         }
@@ -11282,7 +11284,7 @@
     /** @type {?} */
     var routes = [
         {
-            path: 'root',
+            path: '',
             component: RootPage,
             children: [
                 {
@@ -11301,7 +11303,7 @@
         },
         {
             path: '**',
-            redirectTo: 'root'
+            redirectTo: ''
         }
     ];
     var ContactsModule = /** @class */ (function () {
