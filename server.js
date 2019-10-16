@@ -282,10 +282,11 @@
             function (users, text) {
                 /** @type {?} */
                 var searchText = text.toLowerCase();
-                return users.map(( /**
-                 * @param {?} item
-                 * @return {?}
-                 */function (item) {
+                return users
+                    .map(( /**
+             * @param {?} item
+             * @return {?}
+             */function (item) {
                     var e_1, _a;
                     /** @type {?} */
                     var key;
@@ -310,18 +311,68 @@
                                 throw e_1.error;
                         }
                     }
-                }));
+                }))
+                    .filter(( /**
+             * @param {?} item
+             * @return {?}
+             */function (item) { return !!item; }));
             };
+        // public searchBySymbol(users: IContact[], text: string): IContact[] {
+        //   const searchText = text.toLowerCase();
+        //
+        //   return users.reduce((result, item) => {
+        //     let key;
+        //
+        //     for (key of Object.keys(item)) {
+        //       if (item[key] && `${item[key]}`.toLowerCase().includes(searchText)) {
+        //         result.push({ ...item, ...{ subText: item[key] } });
+        //       }
+        //     }
+        //
+        //     return result;
+        //   }, []);
+        // }
+        // public searchBySymbol(users: IContact[], text: string): IContact[] {
+        //   const searchText = text.toLowerCase();
+        //
+        //   return users.reduce((result, item) => {
+        //     let key;
+        //
+        //     for (key of Object.keys(item)) {
+        //       if (item[key] && `${item[key]}`.toLowerCase().includes(searchText)) {
+        //         result.push({ ...item, ...{ subText: item[key] } });
+        //       }
+        //     }
+        //
+        //     return result;
+        //   }, []);
+        // }
         /**
          * @param {?} type
          * @param {?} searchType
          * @return {?}
          */
-        ContactsHelper.prototype.filterByType = /**
-         * @param {?} type
-         * @param {?} searchType
-         * @return {?}
-         */
+        ContactsHelper.prototype.filterByType =
+            // public searchBySymbol(users: IContact[], text: string): IContact[] {
+            //   const searchText = text.toLowerCase();
+            //
+            //   return users.reduce((result, item) => {
+            //     let key;
+            //
+            //     for (key of Object.keys(item)) {
+            //       if (item[key] && `${item[key]}`.toLowerCase().includes(searchText)) {
+            //         result.push({ ...item, ...{ subText: item[key] } });
+            //       }
+            //     }
+            //
+            //     return result;
+            //   }, []);
+            // }
+            /**
+             * @param {?} type
+             * @param {?} searchType
+             * @return {?}
+             */
             function (type, searchType) {
                 return type === searchType || searchType === EContactType.all;
             };
@@ -10810,6 +10861,7 @@
                      * @return {?}
                      */function (i) { return i.active; }));
                     this.selectedMenu = item.label + " (" + item.count + ")";
+                    this.clickEvent(item);
                 }
             };
         /**
@@ -10925,7 +10977,7 @@
          * @return {?}
          */function (text) {
                 _this.searchEvent.emit(text);
-                _this.searchContact(text);
+                _this.setTagHighLight(text);
                 _this.searchList = _this.contactsHelper.searchBySymbol(_this.searchListCopy, text);
             }));
         }
@@ -10975,7 +11027,7 @@
          * @param {?} text
          * @return {?}
          */
-        SearchContactsComponent.prototype.searchContact = /**
+        SearchContactsComponent.prototype.setTagHighLight = /**
          * @private
          * @param {?} text
          * @return {?}
