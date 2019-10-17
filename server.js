@@ -248,6 +248,7 @@
      */
     var ContactsHelper = /** @class */ (function () {
         function ContactsHelper() {
+            this.isMobile = window.innerWidth < 768;
             this.activeContact = new rxjs.BehaviorSubject(null);
             this.headerData = new rxjs.BehaviorSubject({
                 title: EContactTitles.contacts,
@@ -10900,15 +10901,16 @@
          */
             function () {
                 var _this = this;
-                this.contactsList$
-                    .pipe(operators.take(1))
-                    .subscribe(( /**
-             * @param {?} res
-             * @return {?}
-             */function (res) {
+                this.contactsList$.pipe(operators.take(1)).subscribe(( /**
+                 * @param {?} res
+                 * @return {?}
+                 */function (res) {
                     /** @type {?} */
                     var contacts = _this.groupingContact.transform(res);
-                    if (contacts && contacts.length && contacts[0] && contacts[0].groupData.length) {
+                    if (contacts &&
+                        contacts.length &&
+                        contacts[0] &&
+                        contacts[0].groupData.length) {
                         /** @type {?} */
                         var groupData = contacts[0].groupData;
                         _this.selectContactItem(groupData[0]);
@@ -11004,7 +11006,7 @@
             this.sanitizer = sanitizer;
             this.router = router$$1;
             this.contactsHelper = contactsHelper;
-            this.isMobile = window.innerWidth < 768;
+            this.isMobile = this.contactsHelper.isMobile;
             this.headerData$ = this.contactsHelper.headerData;
         }
         /**
@@ -11040,7 +11042,7 @@
         HeaderComponent.decorators = [
             { type: i0.Component, args: [{
                         selector: 'lib-header',
-                        template: "<sr-header>\n  <sr-header-inner-block blockPosition=\"left\">\n    <sr-button\n      (clickHandler)=\"getRoot()\"\n      buttonType=\"icon\"\n      svgIcon=\"arrow-left\"\n    ></sr-button>\n    <sr-heading\n      *ngIf=\"!isMobile\"\n      [headingText]=\"(headerData$ | async)?.title\"\n      headingType=\"h1\"\n    ></sr-heading>\n  </sr-header-inner-block>\n\n  <sr-header-title *ngIf=\"!isMobile\">\n    <sr-icon\n      [style]=\"style('--sr-gradient-cyan')\"\n      svgIcon=\"ic-c\"\n      iconSize=\"36\"\n    ></sr-icon>\n  </sr-header-title>\n\n  <sr-header-inner-block blockPosition=\"right\">\n    <sr-menu\n      menuButtonType=\"icon\"\n      svgIcon=\"notifications\"\n      badgeContent=\"2\"\n      xPosition=\"before\"\n      yPosition=\"below\"\n      customMenuClass=\"notifications header-menu\"\n    >\n      <sr-menu-body noPadding=\"true\">\n        <sr-notifications\n          [data]=\"[\n            {\n              text:\n                '<b>Michael Klein</b> has shared the <b>Werden Bau</b> project with you.',\n              time: '5h',\n              unread: true\n            },\n            {\n              text: 'You have a new message from <b>Andreas Kolt.</b>',\n              time: 'Yesterday',\n              unread: true\n            },\n            {\n              text:\n                '<b>Martina M\u00FCller</b> has shared the <b>Dogo Gartenbau</b> contact with you.',\n              time: 'May 27',\n              unread: true\n            },\n            {\n              text: 'You have joined to <b>Sorba Web Container</b>.',\n              time: 'January 5, 2018',\n              unread: false\n            }\n          ]\"\n        ></sr-notifications>\n      </sr-menu-body>\n      <sr-button\n        buttonType=\"additional\"\n        [isBoxed]=\"true\"\n        buttonText=\"Show all\"\n      ></sr-button>\n    </sr-menu>\n\n    <sr-menu\n      menuButtonType=\"avatar\"\n      xPosition=\"before\"\n      yPosition=\"below\"\n      avatarValue=\"y\"\n      customMenuClass=\"domains header-menu\"\n    >\n      <sr-menu-header class=\"main-menu-item\">\n        <sr-avatar [avatarSize]=\"48\" avatarValue=\"C\"></sr-avatar>\n        <sr-text>Codemotion</sr-text>\n      </sr-menu-header>\n      <sr-menu-footer itemsPosition=\"end\">\n        <sr-button buttonType=\"primary\" buttonText=\"Sign out\"></sr-button>\n      </sr-menu-footer>\n    </sr-menu>\n  </sr-header-inner-block>\n</sr-header>\n",
+                        template: "<sr-header>\n  <sr-header-inner-block blockPosition=\"left\">\n    <sr-button\n      (clickHandler)=\"getRoot()\"\n      buttonType=\"icon\"\n      svgIcon=\"arrow-left\"\n    ></sr-button>\n    <sr-heading\n      *ngIf=\"!isMobile\"\n      [headingText]=\"(headerData$ | async)?.title\"\n      headingType=\"h1\"\n    ></sr-heading>\n  </sr-header-inner-block>\n\n  <sr-header-title *ngIf=\"!isMobile\">\n    <sr-icon\n      [style]=\"style('--sr-gradient-cyan')\"\n      svgIcon=\"ic-c\"\n      iconSize=\"36\"\n    ></sr-icon>\n  </sr-header-title>\n\n  <sr-header-inner-block blockPosition=\"right\">\n    <sr-menu\n      menuButtonType=\"icon\"\n      svgIcon=\"notifications\"\n      badgeContent=\"2\"\n      xPosition=\"before\"\n      yPosition=\"below\"\n      customMenuClass=\"notifications header-menu\"\n    >\n      <sr-menu-body noPadding=\"true\">\n        <sr-notifications\n          [data]=\"[\n            {\n              text:\n                '<b>Michael Klein</b> has shared the <b>Werden Bau</b> project with you.',\n              time: '5h',\n              unread: true\n            },\n            {\n              text: 'You have a new message from <b>Andreas Kolt.</b>',\n              time: 'Yesterday',\n              unread: true\n            },\n            {\n              text:\n                '<b>Martina M\u00FCller</b> has shared the <b>Dogo Gartenbau</b> contact with you.',\n              time: 'May 27',\n              unread: true\n            },\n            {\n              text: 'You have joined to <b>Sorba Web Container</b>.',\n              time: 'January 5, 2018',\n              unread: false\n            }\n          ]\"\n        ></sr-notifications>\n      </sr-menu-body>\n      <sr-button\n        buttonType=\"additional\"\n        [isBoxed]=\"true\"\n        buttonText=\"Show all\"\n      ></sr-button>\n    </sr-menu>\n\n    <sr-menu\n      menuButtonType=\"avatar\"\n      xPosition=\"before\"\n      yPosition=\"below\"\n      avatarValue=\"k\"\n      customMenuClass=\"domains header-menu\"\n    >\n      <sr-menu-header class=\"main-menu-item\">\n        <sr-avatar [avatarSize]=\"48\" avatarValue=\"C\"></sr-avatar>\n        <sr-text>Codemotion</sr-text>\n      </sr-menu-header>\n      <sr-menu-footer itemsPosition=\"end\">\n        <sr-button buttonType=\"primary\" buttonText=\"Sign out\"></sr-button>\n      </sr-menu-footer>\n    </sr-menu>\n  </sr-header-inner-block>\n</sr-header>\n",
                         styles: [""]
                     }] }
         ];
@@ -11203,10 +11205,12 @@
             this.detailsScrollContainerHeightMobile = 'calc(100vh - var(--header-height) - var(--ion-safe-area-top, 0) - 120px)';
             this.detailsScrollContainerHeightDesktop = 'calc(100vh - var(--header-height) - var(--ion-safe-area-top, 0) - 229px)';
             this.activeContact$ = this.contactHelper.activeContact;
-            this.contactHelper.headerData.next({
-                path: "/" + EContactPath.contacts + "/" + EContactPath.contact,
-                title: ''
-            });
+            if (this.isMobile) {
+                this.contactHelper.headerData.next({
+                    path: "/" + EContactPath.contacts + "/" + EContactPath.contact,
+                    title: ''
+                });
+            }
         }
         /**
          * @param {?} field
@@ -11238,7 +11242,7 @@
         ContactDetailComponent.decorators = [
             { type: i0.Component, args: [{
                         selector: 'lib-contact-detail',
-                        template: "<div class=\"contact-details\">\n  <lib-contact-actions\n    [fullName]=\"(activeContact$ | async)?.text\"\n  ></lib-contact-actions>\n\n  <sr-scroll-container\n    [maxHeight]=\"\n      isMobile\n        ? detailsScrollContainerHeightMobile\n        : detailsScrollContainerHeightDesktop\n    \"\n    [scrollIndicators]=\"true\"\n    indicatorPosition=\"bottom\"\n  >\n    <div class=\"info-section\">\n      <sr-heading headingText=\"Contact Details\" headingType=\"h3\"></sr-heading>\n\n      <ul class=\"info-list\">\n        <li class=\"info-list-item\">\n          <div class=\"cell label\">Business number</div>\n          <div class=\"cell value\">\n            <sr-text>{{\n              getField((activeContact$ | async)?.GTELEFON)\n            }}</sr-text>\n          </div>\n        </li>\n        <li class=\"info-list-item\">\n          <div class=\"cell label\">Mobile number</div>\n          <div class=\"cell value\">\n            <sr-text>{{ getField((activeContact$ | async)?.NATEL) }}</sr-text>\n          </div>\n        </li>\n        <li class=\"info-list-item\">\n          <div class=\"cell label\">Email</div>\n          <div class=\"cell value\">\n            <sr-text>{{ getField((activeContact$ | async)?.EMAIL) }}</sr-text>\n          </div>\n        </li>\n        <li class=\"info-list-item\">\n          <div class=\"cell label\">Website</div>\n          <div class=\"cell value\">\n            <sr-text>{{ getField((activeContact$ | async)?.WWW) }}</sr-text>\n          </div>\n        </li>\n        <li class=\"info-list-item\">\n          <div class=\"cell label\">Address</div>\n          <div class=\"cell value\">\n            <sr-text>{{\n              getAddress((activeContact$ | async)?.STRASSE)\n            }}</sr-text>\n            <sr-text>{{ getAddress((activeContact$ | async)?.PLZ) }}</sr-text>\n            <sr-text>{{\n              getAddress((activeContact$ | async)?.ORT, null)\n            }}</sr-text>\n            <sr-text>{{\n              getAddress((activeContact$ | async)?.POSTFACH, null)\n            }}</sr-text>\n          </div>\n        </li>\n      </ul>\n      <div class=\"map-container\">\n        <agm-map\n          [latitude]=\"(activeContact$ | async)?.lat\"\n          [longitude]=\"(activeContact$ | async)?.lng\"\n          [draggable]=\"false\"\n          [panControl]=\"false\"\n          [zoom]=\"15\"\n          [scaleControl]=\"false\"\n          [zoomControl]=\"false\"\n        >\n          <agm-marker\n            [latitude]=\"(activeContact$ | async)?.lat\"\n            [longitude]=\"(activeContact$ | async)?.lng\"\n          ></agm-marker>\n        </agm-map>\n      </div>\n    </div>\n  </sr-scroll-container>\n</div>\n",
+                        template: "<div class=\"contact-details\">\n  <lib-contact-actions\n    [fullName]=\"(activeContact$ | async)?.text | stringLimit: 22:!isMobile\"\n  ></lib-contact-actions>\n\n  <sr-scroll-container\n    [maxHeight]=\"\n      isMobile\n        ? detailsScrollContainerHeightMobile\n        : detailsScrollContainerHeightDesktop\n    \"\n    [scrollIndicators]=\"true\"\n    indicatorPosition=\"bottom\"\n  >\n    <div class=\"info-section\">\n      <sr-heading headingText=\"Contact Details\" headingType=\"h3\"></sr-heading>\n\n      <ul class=\"info-list\">\n        <li class=\"info-list-item\">\n          <div class=\"cell label\">Business number</div>\n          <div class=\"cell value\">\n            <sr-text>{{\n              getField((activeContact$ | async)?.GTELEFON)\n            }}</sr-text>\n          </div>\n        </li>\n        <li class=\"info-list-item\">\n          <div class=\"cell label\">Mobile number</div>\n          <div class=\"cell value\">\n            <sr-text>{{ getField((activeContact$ | async)?.NATEL) }}</sr-text>\n          </div>\n        </li>\n        <li class=\"info-list-item\">\n          <div class=\"cell label\">Private Number</div>\n          <div class=\"cell value\">\n            <sr-text>{{\n              getField((activeContact$ | async)?.PTELEFON)\n            }}</sr-text>\n          </div>\n        </li>\n        <li class=\"info-list-item\">\n          <div class=\"cell label\">Fax</div>\n          <div class=\"cell value\">\n            <sr-text>{{ getField((activeContact$ | async)?.FAX) }}</sr-text>\n          </div>\n        </li>\n        <li class=\"info-list-item\">\n          <div class=\"cell label\">Email</div>\n          <div class=\"cell value\">\n            <sr-text>{{ getField((activeContact$ | async)?.EMAIL) }}</sr-text>\n          </div>\n        </li>\n        <li class=\"info-list-item\">\n          <div class=\"cell label\">Website</div>\n          <div class=\"cell value\">\n            <sr-text>{{ getField((activeContact$ | async)?.WWW) }}</sr-text>\n          </div>\n        </li>\n        <li class=\"info-list-item\">\n          <div class=\"cell label\">Address</div>\n          <div class=\"cell value\">\n            <sr-text>{{\n              getAddress((activeContact$ | async)?.STRASSE)\n            }}</sr-text>\n            <sr-text>{{ getAddress((activeContact$ | async)?.PLZ) }}</sr-text>\n            <sr-text>{{\n              getAddress((activeContact$ | async)?.ORT, null)\n            }}</sr-text>\n            <sr-text>{{\n              getAddress((activeContact$ | async)?.POSTFACH, null)\n            }}</sr-text>\n          </div>\n        </li>\n      </ul>\n      <div class=\"map-container\">\n        <agm-map\n          [latitude]=\"(activeContact$ | async)?.lat\"\n          [longitude]=\"(activeContact$ | async)?.lng\"\n          [draggable]=\"false\"\n          [panControl]=\"false\"\n          [zoom]=\"15\"\n          [scaleControl]=\"false\"\n          [zoomControl]=\"false\"\n        >\n          <agm-marker\n            [latitude]=\"(activeContact$ | async)?.lat\"\n            [longitude]=\"(activeContact$ | async)?.lng\"\n          ></agm-marker>\n        </agm-map>\n      </div>\n    </div>\n  </sr-scroll-container>\n</div>\n",
                         styles: ["agm-map{height:300px}.contact-details .info-section{padding:24px 12px}.contact-details .info-section .sub-heading{margin-bottom:14px;color:var(--base-gray-48)}.contact-details .info-section .info-list-item:not(:last-child){padding-bottom:9px}.contact-details .info-section .info-list-item .value{color:var(--sr-base-color)}.contact-details .map-container{height:160px;margin-top:23px}@media (min-width:768px){.contact-details .info-section{padding:29px 24px 31px}.contact-details .info-section .info-list-item{display:table-row}.contact-details .info-section .info-list-item:not(:last-child) .cell{padding-bottom:8px}.contact-details .info-section .info-list-item .cell{display:table-cell}.contact-details .info-section .info-list-item .label{padding-right:14px;text-align:right}.contact-details .map-container{height:216px;margin-top:31px}}"]
                     }] }
         ];
@@ -11304,6 +11308,70 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
+    var FooterComponent = /** @class */ (function () {
+        function FooterComponent(contactsHelper) {
+            this.contactsHelper = contactsHelper;
+            this.isMobile = this.contactsHelper.isMobile;
+            // todo with graph data
+            this.languages = [
+                { name: 'Deutsch' },
+                { name: 'English', active: true },
+                { name: 'Français' },
+                { name: 'Italiano' }
+            ];
+        }
+        FooterComponent.decorators = [
+            { type: i0.Component, args: [{
+                        selector: 'lib-footer',
+                        template: "<sr-footer *ngIf=\"!isMobile\">\n  <div class=\"row\">\n    <div class=\"col xs-4 m-4\">\n      <sr-text class=\"copyright\">&copy; 2019 Sorba</sr-text>\n    </div>\n    <div class=\"col xs-8 m-4 last-m\">\n      <sr-buttons-group buttonsPosition=\"end\">\n        <sr-link linkColor=\"gray\" linkSize=\"small\">Privacy Policy</sr-link>\n        <sr-link linkColor=\"gray\" linkSize=\"small\">Terms of Service</sr-link>\n        <sr-link linkColor=\"gray\" linkSize=\"small\">Help Center</sr-link>\n      </sr-buttons-group>\n    </div>\n    <div class=\"col m-4\">\n      <sr-buttons-group buttonsPosition=\"center\">\n        <sr-menu\n          menuButtonType=\"text\"\n          xPosition=\"after\"\n          yPosition=\"above\"\n          buttonText=\"English\"\n          svgIcon=\"language\"\n          customMenuClass=\"languages footer-menu\"\n        >\n          <sr-menu-body>\n            <sr-menu-item\n              *ngFor=\"let language of languages\"\n              [hasCheckMark]=\"true\"\n              [class.active]=\"language.active\"\n              itemsPosition=\"between\"\n            >\n              <sr-text>{{ language.name }}</sr-text>\n            </sr-menu-item>\n          </sr-menu-body>\n        </sr-menu>\n      </sr-buttons-group>\n    </div>\n  </div>\n</sr-footer>\n",
+                        styles: [""]
+                    }] }
+        ];
+        /** @nocollapse */
+        FooterComponent.ctorParameters = function () {
+            return [
+                { type: ContactsHelper }
+            ];
+        };
+        return FooterComponent;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    var StringLimitPipe = /** @class */ (function () {
+        function StringLimitPipe() {
+        }
+        /**
+         * @param {?} value
+         * @param {?=} limit
+         * @param {?=} show
+         * @return {?}
+         */
+        StringLimitPipe.prototype.transform = /**
+         * @param {?} value
+         * @param {?=} limit
+         * @param {?=} show
+         * @return {?}
+         */
+            function (value, limit, show) {
+                return show && value && value.length && value.length > limit
+                    ? value.substr(0, limit) + " ..."
+                    : value;
+            };
+        StringLimitPipe.decorators = [
+            { type: i0.Pipe, args: [{
+                        name: 'stringLimit'
+                    },] }
+        ];
+        return StringLimitPipe;
+    }());
 
     /**
      * @fileoverview added by tsickle
@@ -11334,7 +11402,10 @@
                             SelectedMenuComponent,
                             ContactDetailComponent,
                             ContactActionsComponent,
-                            GroupingPipe
+                            FooterComponent,
+                            // pipes
+                            GroupingPipe,
+                            StringLimitPipe
                         ],
                         declarations: [
                             HeaderComponent,
@@ -11342,7 +11413,10 @@
                             SelectedMenuComponent,
                             ContactDetailComponent,
                             ContactActionsComponent,
-                            GroupingPipe
+                            FooterComponent,
+                            // pipes
+                            GroupingPipe,
+                            StringLimitPipe
                         ],
                         providers: [ContactsHelper]
                     },] }
@@ -11356,18 +11430,11 @@
      */
     var RootPage = /** @class */ (function () {
         function RootPage() {
-            this.isMobile = window.innerWidth < 768;
-            this.languages = [
-                { name: 'Deutsch' },
-                { name: 'English' },
-                { name: 'Français' },
-                { name: 'Italiano' }
-            ];
         }
         RootPage.decorators = [
             { type: i0.Component, args: [{
                         selector: 'lib-root-contact',
-                        template: "\n    <lib-header></lib-header>\n    <sr-content>\n      <sr-container noPadding=\"horizontal-top\">\n        <router-outlet></router-outlet>\n      </sr-container>\n\n      <sr-footer *ngIf=\"!isMobile\">\n        <div class=\"row\">\n          <div class=\"col xs-4 m-4\">\n            <sr-text class=\"copyright\">&copy; 2019 Sorba</sr-text>\n          </div>\n          <div class=\"col xs-8 m-4 last-m\">\n            <sr-buttons-group buttonsPosition=\"end\">\n              <sr-link linkColor=\"gray\" linkSize=\"small\"\n                >Privacy Policy</sr-link\n              >\n              <sr-link linkColor=\"gray\" linkSize=\"small\"\n                >Terms of Service</sr-link\n              >\n              <sr-link linkColor=\"gray\" linkSize=\"small\">Help Center</sr-link>\n            </sr-buttons-group>\n          </div>\n          <div class=\"col m-4\">\n            <sr-buttons-group buttonsPosition=\"center\">\n              <sr-menu\n                menuButtonType=\"text\"\n                xPosition=\"after\"\n                yPosition=\"above\"\n                buttonText=\"English\"\n                svgIcon=\"language\"\n                customMenuClass=\"languages footer-menu\"\n              >\n                <sr-menu-body>\n                  <sr-menu-item\n                    *ngFor=\"let language of languages\"\n                    [hasCheckMark]=\"true\"\n                    class=\"active\"\n                    itemsPosition=\"between\"\n                  >\n                    <sr-text>{{ language.name }}</sr-text>\n                  </sr-menu-item>\n                </sr-menu-body>\n              </sr-menu>\n            </sr-buttons-group>\n          </div>\n        </div>\n      </sr-footer>\n    </sr-content>\n  "
+                        template: "\n    <lib-header></lib-header>\n    <sr-content>\n      <sr-container noPadding=\"horizontal-top\">\n        <router-outlet></router-outlet>\n      </sr-container>\n\n      <lib-footer></lib-footer>\n    </sr-content>\n  "
                     }] }
         ];
         return RootPage;
@@ -11428,10 +11495,12 @@
     exports.ContactsModule = ContactsModule;
     exports.ɵj = ContactActionsComponent;
     exports.ɵi = ContactDetailComponent;
+    exports.ɵk = FooterComponent;
     exports.ɵf = HeaderComponent;
     exports.ɵg = SearchContactsComponent;
     exports.ɵh = SelectedMenuComponent;
     exports.ɵb = GroupingPipe;
+    exports.ɵl = StringLimitPipe;
     exports.ɵc = ContactsHelper;
     exports.ɵe = SharedModule;
     exports.ɵa = ContactsComponent;
