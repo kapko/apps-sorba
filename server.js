@@ -1534,6 +1534,8 @@
             NATEL: '',
             FAX: '071 272 26 10',
             EMAIL: '',
+            lat: 42.874622,
+            lng: 74.569763,
             WWW: '',
             BEZ_PERS: 'Herr Bretscher',
             SACHBEARB: '',
@@ -10636,10 +10638,92 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
+    /**
+     * @param {?} items
+     * @param {?} field
+     * @return {?}
+     */
+    function convertToContactList(items, field) {
+        /** @type {?} */
+        var sorted = sortByABC(items, field);
+        /** @type {?} */
+        var grouped = groupByABC(sorted, field);
+        return Object.keys(grouped).map(( /**
+         * @param {?} key
+         * @return {?}
+         */function (key) {
+            return ({
+                groupTitle: key,
+                groupData: grouped[key]
+            });
+        }));
+    }
+    /**
+     * @param {?} items
+     * @param {?} field
+     * @return {?}
+     */
+    function sortByABC(items, field) {
+        return items.sort(( /**
+         * @param {?} a
+         * @param {?} b
+         * @return {?}
+         */function (a, b) {
+            return a[field] > b[field] ? 1 : a[field] < b[field] ? -1 : 0;
+        }));
+    }
+    /**
+     * @param {?} items
+     * @param {?} field
+     * @return {?}
+     */
+    function groupByABC(items, field) {
+        return items.reduce(( /**
+         * @param {?} result
+         * @param {?} value
+         * @return {?}
+         */function (result, value) {
+            result[value[field][0]] = result[value[field][0]] || [];
+            result[value[field][0]].push(value);
+            return result;
+        }), {});
+    }
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    var GroupingPipe = /** @class */ (function () {
+        function GroupingPipe() {
+        }
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        GroupingPipe.prototype.transform = /**
+         * @param {?} value
+         * @return {?}
+         */
+            function (value) {
+                return convertToContactList(value, 'text');
+            };
+        GroupingPipe.decorators = [
+            { type: i0.Pipe, args: [{
+                        name: 'groupingContact'
+                    },] }
+        ];
+        return GroupingPipe;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
     var ContactsComponent = /** @class */ (function () {
-        function ContactsComponent(contactsHelper, router$$1) {
+        function ContactsComponent(contactsHelper, router$$1, groupingContact) {
             this.contactsHelper = contactsHelper;
             this.router = router$$1;
+            this.groupingContact = groupingContact;
             this.windowWidth = window.innerWidth;
             this.menuData = menu;
             // observables
@@ -10647,7 +10731,7 @@
             // todo dummy data
             this.menuItems$ = new rxjs.BehaviorSubject(null);
             this.activeContact$ = new rxjs.BehaviorSubject(null);
-            this.contactsList = new rxjs.BehaviorSubject([]);
+            this.contactsList$ = new rxjs.BehaviorSubject([]);
             this.isMobile = window.innerWidth < 768;
             this.searchText = '';
             this.listScrollContainerHeightMobile = 'calc(100vh - var(--header-height) - var(--ion-safe-area-top, 0) - 152px)';
@@ -10707,10 +10791,7 @@
              * @return {?}
              */function (contacts) {
                     _this.contactsCopy = contacts;
-                    _this.contactsList.next(contacts);
-                    if (!_this.isMobile) {
-                        _this.selectFirstContact(contacts);
-                    }
+                    _this.contactsList$.next(contacts);
                 }));
             };
         /**
@@ -10730,9 +10811,9 @@
                  */function (contact) {
                     return _this.contactsHelper.filterByType(contact.type, menuItem.type);
                 }));
-                this.contactsList.next(contacts);
+                this.contactsList$.next(contacts);
                 if (!this.isMobile) {
-                    this.selectFirstContact(contacts);
+                    this.selectFirstContact();
                 }
             };
         /**
@@ -10811,24 +10892,35 @@
             };
         /**
          * @private
-         * @param {?} contacts
          * @return {?}
          */
         ContactsComponent.prototype.selectFirstContact = /**
          * @private
-         * @param {?} contacts
          * @return {?}
          */
-            function (contacts) {
-                if (contacts && contacts.length) {
-                    this.selectContactItem(contacts[0]);
-                }
+            function () {
+                var _this = this;
+                this.contactsList$
+                    .pipe(operators.take(1))
+                    .subscribe(( /**
+             * @param {?} res
+             * @return {?}
+             */function (res) {
+                    /** @type {?} */
+                    var contacts = _this.groupingContact.transform(res);
+                    if (contacts && contacts.length && contacts[0] && contacts[0].groupData.length) {
+                        /** @type {?} */
+                        var groupData = contacts[0].groupData;
+                        _this.selectContactItem(groupData[0]);
+                    }
+                }));
             };
         ContactsComponent.decorators = [
             { type: i0.Component, args: [{
                         selector: 'lib-contacts',
-                        template: "<!--sidebar-->\n<sr-sidemenu\n  openMenuText=\"menu\"\n  closeMenuText=\"close\"\n  [data]=\"menuData\"\n  [windowWidth]=\"windowWidth\"\n  [isMenuFloat]=\"false\"\n></sr-sidemenu>\n\n<sr-content-card class=\"contacts-container\">\n  <div class=\"left-panel\">\n    <header class=\"contacts-list-header\">\n      <div class=\"top-block\">\n        <lib-selected-menu\n          [items]=\"menuItems$ | async\"\n          (selectedEvent)=\"filterByMenu($event)\"\n        ></lib-selected-menu>\n        <sr-button\n          buttonType=\"icon\"\n          svgIcon=\"contact-add\"\n          class=\"contact-add\"\n        ></sr-button>\n      </div>\n\n      <!-- search contacts -->\n      <lib-search-contacts\n        [searchList]=\"contactsList | async\"\n        (searchEvent)=\"searchEvent($event)\"\n        (selectContactItem)=\"selectContactItem($event)\"\n      ></lib-search-contacts>\n    </header>\n\n    <sr-contacts-list\n      *ngIf=\"!searchText.length\"\n      [data]=\"contactsList | async | groupingContact\"\n      [scrollContainerMaxHeight]=\"\n        isMobile\n          ? listScrollContainerHeightMobile\n          : listScrollContainerHeightDesktop\n      \"\n      [windowWidth]=\"windowWidth\"\n      [activeItemId]=\"(activeContact$ | async)?.id\"\n      (itemClickHandler)=\"selectContactItem($event)\"\n    ></sr-contacts-list>\n  </div>\n\n  <!-- user details column-->\n  <div class=\"right-panel\" *ngIf=\"!isMobile\">\n    <lib-contact-detail></lib-contact-detail>\n  </div>\n</sr-content-card>\n",
+                        template: "<!--sidebar-->\n<sr-sidemenu\n  openMenuText=\"menu\"\n  closeMenuText=\"close\"\n  [data]=\"menuData\"\n  [windowWidth]=\"windowWidth\"\n  [isMenuFloat]=\"false\"\n></sr-sidemenu>\n\n<sr-content-card class=\"contacts-container\">\n  <div class=\"left-panel\">\n    <header class=\"contacts-list-header\">\n      <div class=\"top-block\">\n        <lib-selected-menu\n          [items]=\"menuItems$ | async\"\n          (selectedEvent)=\"filterByMenu($event)\"\n        ></lib-selected-menu>\n        <sr-button\n          buttonType=\"icon\"\n          svgIcon=\"contact-add\"\n          class=\"contact-add\"\n        ></sr-button>\n      </div>\n\n      <!-- search contacts -->\n      <lib-search-contacts\n        [searchList]=\"contactsList$ | async\"\n        (searchEvent)=\"searchEvent($event)\"\n        (selectContactItem)=\"selectContactItem($event)\"\n      ></lib-search-contacts>\n    </header>\n\n    <sr-contacts-list\n      *ngIf=\"!searchText.length\"\n      [data]=\"contactsList$ | async | groupingContact\"\n      [scrollContainerMaxHeight]=\"\n        isMobile\n          ? listScrollContainerHeightMobile\n          : listScrollContainerHeightDesktop\n      \"\n      [windowWidth]=\"windowWidth\"\n      [activeItemId]=\"(activeContact$ | async)?.id\"\n      (itemClickHandler)=\"selectContactItem($event)\"\n    ></sr-contacts-list>\n  </div>\n\n  <!-- user details column-->\n  <div class=\"right-panel\" *ngIf=\"!isMobile\">\n    <lib-contact-detail></lib-contact-detail>\n  </div>\n</sr-content-card>\n",
                         encapsulation: i0.ViewEncapsulation.None,
+                        providers: [GroupingPipe],
                         styles: [".contacts-list-header{border-bottom:1px solid var(--sr-border-color)}.contacts-list-header .top-block{display:flex;align-items:center;justify-content:space-between;padding:14px 8px 14px 12px}.contacts-list-header .mat-button-wrapper sr-text{order:-1}.contacts-list-header .mat-icon-button.text{font-weight:600}.contact-add .mat-icon-button.icon{color:var(--sr-base-color)}.search-field .input-wrapper{display:flex;align-items:center;height:48px;padding:4px 16px 4px 28px;border-top:1px solid var(--sr-border-color)}.search-field .input-wrapper sr-icon{color:var(--base-gray-64)}.search-field .input-wrapper input{width:100%;padding:0;border:0;font-weight:600}.search-field .input-wrapper .search-icon{margin-right:16px}.search-field .search-result{border-top:1px solid var(--sr-border-color)}@media (max-width:767px){.contacts-container .contact-add{position:fixed;right:8px;bottom:8px;z-index:71}}@media (min-width:768px){.contacts-container .content-card{display:flex}.contacts-container .left-panel{width:263px;border-right:1px solid var(--sr-border-color);border-bottom-left-radius:5px;overflow:hidden}.contacts-container .right-panel{width:calc(100% - 263px)}.contacts-list-header .top-block{height:72px;padding:3px 16px 4px 24px}}"]
                     }] }
         ];
@@ -10836,7 +10928,8 @@
         ContactsComponent.ctorParameters = function () {
             return [
                 { type: ContactsHelper },
-                { type: router.Router }
+                { type: router.Router },
+                { type: GroupingPipe }
             ];
         };
         return ContactsComponent;
@@ -11216,87 +11309,6 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
-    /**
-     * @param {?} items
-     * @param {?} field
-     * @return {?}
-     */
-    function convertToContactList(items, field) {
-        /** @type {?} */
-        var sorted = sortByABC(items, field);
-        /** @type {?} */
-        var grouped = groupByABC(sorted, field);
-        return Object.keys(grouped).map(( /**
-         * @param {?} key
-         * @return {?}
-         */function (key) {
-            return ({
-                groupTitle: key,
-                groupData: grouped[key]
-            });
-        }));
-    }
-    /**
-     * @param {?} items
-     * @param {?} field
-     * @return {?}
-     */
-    function sortByABC(items, field) {
-        return items.sort(( /**
-         * @param {?} a
-         * @param {?} b
-         * @return {?}
-         */function (a, b) {
-            return a[field] > b[field] ? 1 : a[field] < b[field] ? -1 : 0;
-        }));
-    }
-    /**
-     * @param {?} items
-     * @param {?} field
-     * @return {?}
-     */
-    function groupByABC(items, field) {
-        return items.reduce(( /**
-         * @param {?} result
-         * @param {?} value
-         * @return {?}
-         */function (result, value) {
-            result[value[field][0]] = result[value[field][0]] || [];
-            result[value[field][0]].push(value);
-            return result;
-        }), {});
-    }
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-    var GroupingPipe = /** @class */ (function () {
-        function GroupingPipe() {
-        }
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        GroupingPipe.prototype.transform = /**
-         * @param {?} value
-         * @return {?}
-         */
-            function (value) {
-                return convertToContactList(value, 'text');
-            };
-        GroupingPipe.decorators = [
-            { type: i0.Pipe, args: [{
-                        name: 'groupingContact'
-                    },] }
-        ];
-        return GroupingPipe;
-    }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
     var SharedModule = /** @class */ (function () {
         function SharedModule() {
         }
@@ -11414,16 +11426,16 @@
      */
 
     exports.ContactsModule = ContactsModule;
-    exports.ɵi = ContactActionsComponent;
-    exports.ɵh = ContactDetailComponent;
-    exports.ɵe = HeaderComponent;
-    exports.ɵf = SearchContactsComponent;
-    exports.ɵg = SelectedMenuComponent;
-    exports.ɵj = GroupingPipe;
-    exports.ɵb = ContactsHelper;
-    exports.ɵd = SharedModule;
+    exports.ɵj = ContactActionsComponent;
+    exports.ɵi = ContactDetailComponent;
+    exports.ɵf = HeaderComponent;
+    exports.ɵg = SearchContactsComponent;
+    exports.ɵh = SelectedMenuComponent;
+    exports.ɵb = GroupingPipe;
+    exports.ɵc = ContactsHelper;
+    exports.ɵe = SharedModule;
     exports.ɵa = ContactsComponent;
-    exports.ɵc = RootPage;
+    exports.ɵd = RootPage;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
