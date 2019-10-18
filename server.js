@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@sorba-app/sorba-ui-components'), require('@ionic/angular'), require('@angular/common'), require('@angular/platform-browser'), require('@angular/router'), require('rxjs'), require('rxjs/operators'), require('@angular/forms'), require('@agm/core'), require('@angular/core')) :
-    typeof define === 'function' && define.amd ? define('contacts', ['exports', '@sorba-app/sorba-ui-components', '@ionic/angular', '@angular/common', '@angular/platform-browser', '@angular/router', 'rxjs', 'rxjs/operators', '@angular/forms', '@agm/core', '@angular/core'], factory) :
-    (factory((global.contacts = {}),global.sorbaUiComponents,global.angular,global.ng.common,global.ng.platformBrowser,global.ng.router,global.rxjs,global.rxjs.operators,global.ng.forms,global.core,global.ng.core));
-}(this, (function (exports,sorbaUiComponents,angular,common,platformBrowser,router,rxjs,operators,forms,core,i0) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@ionic-native/keyboard'), require('@sorba-app/sorba-ui-components'), require('@ionic/angular'), require('@angular/common'), require('@agm/core'), require('@angular/platform-browser'), require('@angular/router'), require('@angular/forms'), require('rxjs'), require('rxjs/operators'), require('@angular/core')) :
+    typeof define === 'function' && define.amd ? define('contacts', ['exports', '@ionic-native/keyboard', '@sorba-app/sorba-ui-components', '@ionic/angular', '@angular/common', '@agm/core', '@angular/platform-browser', '@angular/router', '@angular/forms', 'rxjs', 'rxjs/operators', '@angular/core'], factory) :
+    (factory((global.contacts = {}),global.keyboard,global.sorbaUiComponents,global.angular,global.ng.common,global.core,global.ng.platformBrowser,global.ng.router,global.ng.forms,global.rxjs,global.rxjs.operators,global.ng.core));
+}(this, (function (exports,keyboard,sorbaUiComponents,angular,common,core,platformBrowser,router,forms,rxjs,operators,i0) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
@@ -250,6 +250,7 @@
         function ContactsHelper() {
             this.isMobile = window.innerWidth < 768;
             this.isDesktop = window.innerWidth > 1023;
+            this.desktopHeight = 'calc(100vh - var(--header-height) - var(--ion-safe-area-top, 0) - 277px)';
             this.activeContact = new rxjs.BehaviorSubject(null);
             this.headerData = new rxjs.BehaviorSubject({
                 title: EContactTitles.contacts,
@@ -318,6 +319,17 @@
              * @param {?} item
              * @return {?}
              */function (item) { return !!item; }));
+            };
+        /**
+         * @param {?} height
+         * @return {?}
+         */
+        ContactsHelper.prototype.getMobileHeight = /**
+         * @param {?} height
+         * @return {?}
+         */
+            function (height) {
+                return "calc(100vh - var(--header-height) - var(--ion-safe-area-top, 0) - " + height + ")";
             };
         // public searchBySymbol(users: IContact[], text: string): IContact[] {
         //   const searchText = text.toLowerCase();
@@ -393,6 +405,118 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
+    var KeyboardHelper = /** @class */ (function () {
+        function KeyboardHelper() {
+            var _this = this;
+            this.keyboardHeight$ = new rxjs.BehaviorSubject(null);
+            window.addEventListener('keyboardDidHide', ( /**
+             * @return {?}
+             */function () {
+                return _this.keyboardHeight$.next(null);
+            }));
+            window.addEventListener('keyboardWillShow', ( /**
+             * @param {?} event
+             * @return {?}
+             */function (event) {
+                return _this.keyboardHeight$.next(event['keyboardHeight']);
+            }));
+        }
+        KeyboardHelper.decorators = [
+            { type: i0.Injectable, args: [{
+                        providedIn: 'root'
+                    },] }
+        ];
+        /** @nocollapse */
+        KeyboardHelper.ctorParameters = function () { return []; };
+        /** @nocollapse */ KeyboardHelper.ngInjectableDef = i0.defineInjectable({ factory: function KeyboardHelper_Factory() { return new KeyboardHelper(); }, token: KeyboardHelper, providedIn: "root" });
+        return KeyboardHelper;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    /**
+     * @param {?} items
+     * @param {?} field
+     * @return {?}
+     */
+    function convertToContactList(items, field) {
+        /** @type {?} */
+        var sorted = sortByABC(items, field);
+        /** @type {?} */
+        var grouped = groupByABC(sorted, field);
+        return Object.keys(grouped).map(( /**
+         * @param {?} key
+         * @return {?}
+         */function (key) {
+            return ({
+                groupTitle: key,
+                groupData: grouped[key]
+            });
+        }));
+    }
+    /**
+     * @param {?} items
+     * @param {?} field
+     * @return {?}
+     */
+    function sortByABC(items, field) {
+        return items.sort(( /**
+         * @param {?} a
+         * @param {?} b
+         * @return {?}
+         */function (a, b) {
+            return a[field] > b[field] ? 1 : a[field] < b[field] ? -1 : 0;
+        }));
+    }
+    /**
+     * @param {?} items
+     * @param {?} field
+     * @return {?}
+     */
+    function groupByABC(items, field) {
+        return items.reduce(( /**
+         * @param {?} result
+         * @param {?} value
+         * @return {?}
+         */function (result, value) {
+            result[value[field][0]] = result[value[field][0]] || [];
+            result[value[field][0]].push(value);
+            return result;
+        }), {});
+    }
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    var GroupingPipe = /** @class */ (function () {
+        function GroupingPipe() {
+        }
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        GroupingPipe.prototype.transform = /**
+         * @param {?} value
+         * @return {?}
+         */
+            function (value) {
+                return convertToContactList(value, 'text');
+            };
+        GroupingPipe.decorators = [
+            { type: i0.Pipe, args: [{
+                        name: 'groupingContact'
+                    },] }
+        ];
+        return GroupingPipe;
+    }());
 
     /**
      * @fileoverview added by tsickle
@@ -10640,110 +10764,53 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
-    /**
-     * @param {?} items
-     * @param {?} field
-     * @return {?}
-     */
-    function convertToContactList(items, field) {
-        /** @type {?} */
-        var sorted = sortByABC(items, field);
-        /** @type {?} */
-        var grouped = groupByABC(sorted, field);
-        return Object.keys(grouped).map(( /**
-         * @param {?} key
-         * @return {?}
-         */function (key) {
-            return ({
-                groupTitle: key,
-                groupData: grouped[key]
-            });
-        }));
-    }
-    /**
-     * @param {?} items
-     * @param {?} field
-     * @return {?}
-     */
-    function sortByABC(items, field) {
-        return items.sort(( /**
-         * @param {?} a
-         * @param {?} b
-         * @return {?}
-         */function (a, b) {
-            return a[field] > b[field] ? 1 : a[field] < b[field] ? -1 : 0;
-        }));
-    }
-    /**
-     * @param {?} items
-     * @param {?} field
-     * @return {?}
-     */
-    function groupByABC(items, field) {
-        return items.reduce(( /**
-         * @param {?} result
-         * @param {?} value
-         * @return {?}
-         */function (result, value) {
-            result[value[field][0]] = result[value[field][0]] || [];
-            result[value[field][0]].push(value);
-            return result;
-        }), {});
-    }
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-    var GroupingPipe = /** @class */ (function () {
-        function GroupingPipe() {
-        }
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        GroupingPipe.prototype.transform = /**
-         * @param {?} value
-         * @return {?}
-         */
-            function (value) {
-                return convertToContactList(value, 'text');
-            };
-        GroupingPipe.decorators = [
-            { type: i0.Pipe, args: [{
-                        name: 'groupingContact'
-                    },] }
-        ];
-        return GroupingPipe;
-    }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
     var ContactsComponent = /** @class */ (function () {
-        function ContactsComponent(contactsHelper, router$$1, groupingContact) {
+        function ContactsComponent(contactsHelper, router$$1, groupingContact, keyboardHelper) {
             this.contactsHelper = contactsHelper;
             this.router = router$$1;
             this.groupingContact = groupingContact;
+            this.keyboardHelper = keyboardHelper;
             this.windowWidth = window.innerWidth;
             this.menuData = menu;
+            this.showMenu = false;
             // observables
             this.data = rxjs.of(( /** @type {?} */(data))); // todo dummy data
             // todo dummy data
             this.menuItems$ = new rxjs.BehaviorSubject(null);
             this.activeContact$ = new rxjs.BehaviorSubject(null);
             this.contactsList$ = new rxjs.BehaviorSubject([]);
+            this.keyboard = keyboard.Keyboard;
+            this.subject = new rxjs.Subject();
             this.isMobile = window.innerWidth < 768;
             this.searchText = '';
-            this.listScrollContainerHeightMobile = 'calc(100vh - var(--header-height) - var(--ion-safe-area-top, 0) - 152px)';
-            this.listScrollContainerHeightDesktop = 'calc(100vh - var(--header-height) - var(--ion-safe-area-top, 0) - 277px)';
+            this.mobileHeight = this.contactsHelper.getMobileHeight('152px');
+            this.desktopHeight = this.contactsHelper.desktopHeight;
             this.uploadData();
+            this.keyboard.setResizeMode('native');
             this.contactsHelper.headerData.next({
                 title: EContactTitles.contacts,
                 path: '/'
             });
         }
+        /**
+         * @return {?}
+         */
+        ContactsComponent.prototype.ngOnDestroy = /**
+         * @return {?}
+         */
+            function () {
+                this.subject.next();
+                this.subject.complete();
+            };
+        /**
+         * @return {?}
+         */
+        ContactsComponent.prototype.ngAfterViewInit = /**
+         * @return {?}
+         */
+            function () {
+                this.toggleMenu();
+            };
         /**
          * @param {?} item
          * @return {?}
@@ -10918,13 +10985,33 @@
                     }
                 }));
             };
+        /**
+         * @private
+         * @return {?}
+         */
+        ContactsComponent.prototype.toggleMenu = /**
+         * @private
+         * @return {?}
+         */
+            function () {
+                var _this = this;
+                this.keyboardHelper.keyboardHeight$
+                    .pipe(operators.takeUntil(this.subject))
+                    .subscribe(( /**
+             * @param {?} height
+             * @return {?}
+             */function (height) {
+                    _this.mobileHeight = _this.contactsHelper.getMobileHeight(height ? '96px' : '152px');
+                    _this.showMenu = !!height;
+                }));
+            };
         ContactsComponent.decorators = [
             { type: i0.Component, args: [{
                         selector: 'lib-contacts',
-                        template: "<!--sidebar-->\n<sr-sidemenu\n  openMenuText=\"menu\"\n  closeMenuText=\"close\"\n  [data]=\"menuData\"\n  [windowWidth]=\"windowWidth\"\n  [isMenuFloat]=\"false\"\n></sr-sidemenu>\n\n<sr-content-card class=\"contacts-container\">\n  <div class=\"left-panel\">\n    <header class=\"contacts-list-header\">\n      <div class=\"top-block\">\n        <lib-selected-menu\n          [items]=\"menuItems$ | async\"\n          (selectedEvent)=\"filterByMenu($event)\"\n        ></lib-selected-menu>\n        <sr-button\n          buttonType=\"icon\"\n          svgIcon=\"contact-add\"\n          class=\"contact-add\"\n        ></sr-button>\n      </div>\n\n      <!-- search contacts -->\n      <lib-search-contacts\n        [searchList]=\"contactsList$ | async\"\n        (searchEvent)=\"searchEvent($event)\"\n        (selectContactItem)=\"selectContactItem($event)\"\n      ></lib-search-contacts>\n    </header>\n\n    <sr-contacts-list\n      *ngIf=\"!searchText.length\"\n      [data]=\"contactsList$ | async | groupingContact\"\n      [scrollContainerMaxHeight]=\"\n        isMobile\n          ? listScrollContainerHeightMobile\n          : listScrollContainerHeightDesktop\n      \"\n      [windowWidth]=\"windowWidth\"\n      [activeItemId]=\"(activeContact$ | async)?.id\"\n      (itemClickHandler)=\"selectContactItem($event)\"\n      [scrollIndicators]=\"!isMobile\"\n    ></sr-contacts-list>\n  </div>\n\n  <!-- user details column-->\n  <div class=\"right-panel\" *ngIf=\"!isMobile\">\n    <lib-contact-detail></lib-contact-detail>\n  </div>\n</sr-content-card>\n",
+                        template: "<!--sidebar-->\n<sr-sidemenu\n  *ngIf=\"!showMenu\"\n  openMenuText=\"menu\"\n  closeMenuText=\"close\"\n  [data]=\"menuData\"\n  [windowWidth]=\"windowWidth\"\n  [isMenuFloat]=\"false\"\n></sr-sidemenu>\n\n<sr-content-card class=\"contacts-container\">\n  <div class=\"left-panel\">\n    <header class=\"contacts-list-header\">\n      <div class=\"top-block\">\n        <lib-selected-menu\n          [items]=\"menuItems$ | async\"\n          (selectedEvent)=\"filterByMenu($event)\"\n        ></lib-selected-menu>\n        <sr-button\n          *ngIf=\"!showMenu\"\n          buttonType=\"icon\"\n          svgIcon=\"contact-add\"\n          class=\"contact-add\"\n        ></sr-button>\n      </div>\n\n      <!-- search contacts -->\n      <lib-search-contacts\n        [searchList]=\"contactsList$ | async\"\n        (searchEvent)=\"searchEvent($event)\"\n        (selectContactItem)=\"selectContactItem($event)\"\n      ></lib-search-contacts>\n    </header>\n\n    <sr-contacts-list\n      *ngIf=\"!searchText.length\"\n      [data]=\"contactsList$ | async | groupingContact\"\n      [scrollContainerMaxHeight]=\"isMobile ? mobileHeight : desktopHeight\"\n      [windowWidth]=\"windowWidth\"\n      [activeItemId]=\"(activeContact$ | async)?.id\"\n      (itemClickHandler)=\"selectContactItem($event)\"\n      [scrollIndicators]=\"!isMobile\"\n    ></sr-contacts-list>\n  </div>\n\n  <!-- user details column-->\n  <div class=\"right-panel\" *ngIf=\"!isMobile\">\n    <lib-contact-detail></lib-contact-detail>\n  </div>\n</sr-content-card>\n",
                         encapsulation: i0.ViewEncapsulation.None,
                         providers: [GroupingPipe],
-                        styles: [".contacts-list-header .top-block{display:flex;align-items:center;justify-content:space-between;padding:14px 8px 14px 12px}.contacts-list-header .mat-button-wrapper sr-text{order:-1}.contacts-list-header .mat-icon-button.text{font-weight:600}.contact-add .mat-icon-button.icon{color:var(--sr-base-color)}.search-field .input-wrapper{display:flex;align-items:center;height:48px;padding:4px 16px 4px 28px;border-top:1px solid var(--sr-border-color);border-bottom:1px solid var(--sr-border-color)}.search-field .input-wrapper sr-icon{color:var(--base-gray-64)}.search-field .input-wrapper input{width:100%;padding:0;border:0;font-weight:600}.search-field .input-wrapper .search-icon{margin-right:16px}.search-field .no-data{display:block;padding:16px 16px 16px 68px}@media (max-width:767px){.contacts-container .contact-add{position:fixed;right:8px;bottom:8px;z-index:71}}@media (min-width:768px){.contacts-container .content-card{display:flex}.contacts-container .left-panel{width:263px;border-right:1px solid var(--sr-border-color);border-bottom-left-radius:5px;overflow:hidden}.contacts-container .right-panel{width:calc(100% - 263px)}.contacts-list-header .top-block{height:72px;padding:3px 16px 4px 24px}}"]
+                        styles: [".contacts-list-header{border-bottom:1px solid var(--sr-border-color)}.contacts-list-header .top-block{display:flex;align-items:center;justify-content:space-between;padding:14px 8px 14px 12px}.contacts-list-header .mat-button-wrapper sr-text{order:-1}.contacts-list-header .mat-icon-button.text{font-weight:600}.contact-add .mat-icon-button.icon{color:var(--sr-base-color)}.search-field .input-wrapper{display:flex;align-items:center;height:48px;padding:4px 16px 4px 28px;border-top:1px solid var(--sr-border-color)}.search-field .input-wrapper sr-icon{color:var(--base-gray-64)}.search-field .input-wrapper input{width:100%;padding:0;border:0;font-weight:600}.search-field .input-wrapper .search-icon{margin-right:16px}.search-field .search-result{border-top:1px solid var(--sr-border-color)}@media (max-width:767px){.contacts-container .contact-add{position:fixed;right:8px;bottom:8px;z-index:71}}@media (min-width:768px){.contacts-container .content-card{display:flex}.contacts-container .left-panel{width:263px;border-right:1px solid var(--sr-border-color);border-bottom-left-radius:5px;overflow:hidden}.contacts-container .right-panel{width:calc(100% - 263px)}.contacts-list-header .top-block{height:72px;padding:3px 16px 4px 24px}}"]
                     }] }
         ];
         /** @nocollapse */
@@ -10932,7 +11019,8 @@
             return [
                 { type: ContactsHelper },
                 { type: router.Router },
-                { type: GroupingPipe }
+                { type: GroupingPipe },
+                { type: KeyboardHelper }
             ];
         };
         return ContactsComponent;
@@ -11420,7 +11508,7 @@
                             GroupingPipe,
                             StringLimitPipe
                         ],
-                        providers: [ContactsHelper]
+                        providers: [ContactsHelper, KeyboardHelper]
                     },] }
         ];
         return SharedModule;
@@ -11495,18 +11583,19 @@
      */
 
     exports.ContactsModule = ContactsModule;
-    exports.ɵj = ContactActionsComponent;
-    exports.ɵi = ContactDetailComponent;
-    exports.ɵk = FooterComponent;
-    exports.ɵf = HeaderComponent;
-    exports.ɵg = SearchContactsComponent;
-    exports.ɵh = SelectedMenuComponent;
+    exports.ɵk = ContactActionsComponent;
+    exports.ɵj = ContactDetailComponent;
+    exports.ɵl = FooterComponent;
+    exports.ɵg = HeaderComponent;
+    exports.ɵh = SearchContactsComponent;
+    exports.ɵi = SelectedMenuComponent;
     exports.ɵb = GroupingPipe;
-    exports.ɵl = StringLimitPipe;
+    exports.ɵm = StringLimitPipe;
     exports.ɵc = ContactsHelper;
-    exports.ɵe = SharedModule;
+    exports.ɵd = KeyboardHelper;
+    exports.ɵf = SharedModule;
     exports.ɵa = ContactsComponent;
-    exports.ɵd = RootPage;
+    exports.ɵe = RootPage;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
