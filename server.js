@@ -11158,16 +11158,13 @@
             this.selectContactItem = new i0.EventEmitter();
             this.search = new forms.FormControl('');
             this.subject = new rxjs.Subject();
+            this.searchText = '';
             this.search.valueChanges
-                .pipe(operators.takeUntil(this.subject), operators.debounceTime(400))
+                .pipe(operators.takeUntil(this.subject))
                 .subscribe(( /**
          * @param {?} text
          * @return {?}
-         */function (text) {
-                _this.searchEvent.emit(text);
-                _this.setTagHighLight(text);
-                _this.searchList = _this.contactsHelper.searchBySymbol(_this.searchListCopy, text);
-            }));
+         */function (text) { return _this.searchContact(text); }));
         }
         /**
          * @return {?}
@@ -11178,6 +11175,7 @@
             function () {
                 if (this.searchList) {
                     this.searchListCopy = this.searchList;
+                    this.searchContact(this.searchText);
                 }
             };
         /**
@@ -11209,6 +11207,22 @@
          */
             function () {
                 this.search.setValue('');
+            };
+        /**
+         * @private
+         * @param {?} text
+         * @return {?}
+         */
+        SearchContactsComponent.prototype.searchContact = /**
+         * @private
+         * @param {?} text
+         * @return {?}
+         */
+            function (text) {
+                this.searchText = text;
+                this.searchEvent.emit(text);
+                this.setTagHighLight(text);
+                this.searchList = this.contactsHelper.searchBySymbol(this.searchListCopy, text);
             };
         /**
          * @private
