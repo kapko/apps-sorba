@@ -6,6 +6,8 @@
 
     gql = gql ? gql['default'] : gql;
     console.log('gql');
+    console.log('gql');
+    console.log('gql');
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
