@@ -761,8 +761,8 @@
             this.searchText = '';
             console.log(123);
             this.getActiveLanguage();
-            this.setContactsGql();
-            this.uploadData();
+            // this.setContactsGql();
+            // this.uploadData();
             this.contactsHelper.headerData.next({
                 title: EContactTitles.contacts,
                 path: '/'
