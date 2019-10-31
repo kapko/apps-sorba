@@ -1,13 +1,10 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('apollo-angular'), require('@ionic-native/in-app-browser/ngx'), require('@ionic-native/in-app-browser/ngx/index'), require('graphql-tag'), require('@sorba-app/sorba-ui-components'), require('@ionic/angular'), require('@angular/common'), require('@agm/core'), require('@angular/platform-browser'), require('@angular/router'), require('@angular/forms'), require('rxjs/operators'), require('rxjs'), require('@ionic-native/document-viewer/ngx'), require('@ionic-native/file/ngx'), require('@ionic-native/file-opener/ngx'), require('@angular/core')) :
-    typeof define === 'function' && define.amd ? define('contacts', ['exports', 'apollo-angular', '@ionic-native/in-app-browser/ngx', '@ionic-native/in-app-browser/ngx/index', 'graphql-tag', '@sorba-app/sorba-ui-components', '@ionic/angular', '@angular/common', '@agm/core', '@angular/platform-browser', '@angular/router', '@angular/forms', 'rxjs/operators', 'rxjs', '@ionic-native/document-viewer/ngx', '@ionic-native/file/ngx', '@ionic-native/file-opener/ngx', '@angular/core'], factory) :
-    (factory((global.contacts = {}),global.apolloAngular,global.ngx,global.i1,global.gql,global.sorbaUiComponents,global.i1$1,global.ng.common,global.core,global.ng.platformBrowser,global.ng.router,global.ng.forms,global.rxjs.operators,global.rxjs,global.ngx$1,global.ngx$2,global.ngx$3,global.ng.core));
-}(this, (function (exports,apolloAngular,ngx,i1,gql,sorbaUiComponents,i1$1,common,core,platformBrowser,router,forms,operators,rxjs,ngx$1,ngx$2,ngx$3,i0) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@ionic-native/in-app-browser/ngx'), require('@ionic-native/in-app-browser/ngx/index'), require('apollo-angular'), require('graphql-tag'), require('@sorba-app/sorba-ui-components'), require('@ionic/angular'), require('@angular/common'), require('@agm/core'), require('@angular/platform-browser'), require('@angular/router'), require('@angular/forms'), require('rxjs/operators'), require('rxjs'), require('@ionic-native/document-viewer/ngx'), require('@ionic-native/file/ngx'), require('@ionic-native/file-opener/ngx'), require('@angular/core')) :
+    typeof define === 'function' && define.amd ? define('contacts', ['exports', '@ionic-native/in-app-browser/ngx', '@ionic-native/in-app-browser/ngx/index', 'apollo-angular', 'graphql-tag', '@sorba-app/sorba-ui-components', '@ionic/angular', '@angular/common', '@agm/core', '@angular/platform-browser', '@angular/router', '@angular/forms', 'rxjs/operators', 'rxjs', '@ionic-native/document-viewer/ngx', '@ionic-native/file/ngx', '@ionic-native/file-opener/ngx', '@angular/core'], factory) :
+    (factory((global.contacts = {}),global.ngx,global.i1,global.i1$1,global.gql,global.sorbaUiComponents,global.i1$2,global.ng.common,global.core,global.ng.platformBrowser,global.ng.router,global.ng.forms,global.rxjs.operators,global.rxjs,global.ngx$1,global.ngx$2,global.ngx$3,global.ng.core));
+}(this, (function (exports,ngx,i1,i1$1,gql,sorbaUiComponents,i1$2,common,core,platformBrowser,router,forms,operators,rxjs,ngx$1,ngx$2,ngx$3,i0) { 'use strict';
 
     gql = gql ? gql['default'] : gql;
-    console.log('gql');
-    console.log('gql');
-    console.log('gql');
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
@@ -23,6 +20,20 @@
     See the Apache Version 2.0 License for specific language governing permissions
     and limitations under the License.
     ***************************************************************************** */
+    /* global Reflect, Promise */
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b)
+                if (b.hasOwnProperty(p))
+                    d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    function __extends(d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    }
     var __assign = function () {
         __assign = Object.assign || function __assign(t) {
             for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -587,12 +598,54 @@
         /** @nocollapse */
         PlatformHelper.ctorParameters = function () {
             return [
-                { type: i1$1.Platform }
+                { type: i1$2.Platform }
             ];
         };
-        /** @nocollapse */ PlatformHelper.ngInjectableDef = i0.defineInjectable({ factory: function PlatformHelper_Factory() { return new PlatformHelper(i0.inject(i1$1.Platform)); }, token: PlatformHelper, providedIn: "root" });
+        /** @nocollapse */ PlatformHelper.ngInjectableDef = i0.defineInjectable({ factory: function PlatformHelper_Factory() { return new PlatformHelper(i0.inject(i1$2.Platform)); }, token: PlatformHelper, providedIn: "root" });
         return PlatformHelper;
     }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    var ContactListRest = /** @class */ (function (_super) {
+        __extends(ContactListRest, _super);
+        function ContactListRest() {
+            var _this = _super !== null && _super.apply(this, arguments) || this;
+            _this.document = gql(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n        query contacts($domain: String!) {\n            apps {\n                data(domain: $domain) {\n                    ... on AppContact {\n                        business_number\n                        mobile_number\n                        private_number\n                        fax\n                        website\n                        address\n                        logical20\n                        name\n                        id\n                        postal_code\n                        city\n                        po_box\n                        geocode_address {\n                            lat\n                            lon\n                        }\n                    }\n                }\n            }\n        }\n    "], ["\n        query contacts($domain: String!) {\n            apps {\n                data(domain: $domain) {\n                    ... on AppContact {\n                        business_number\n                        mobile_number\n                        private_number\n                        fax\n                        website\n                        address\n                        logical20\n                        name\n                        id\n                        postal_code\n                        city\n                        po_box\n                        geocode_address {\n                            lat\n                            lon\n                        }\n                    }\n                }\n            }\n        }\n    "])));
+            return _this;
+        }
+        ContactListRest.decorators = [
+            { type: i0.Injectable, args: [{
+                        providedIn: 'root'
+                    },] }
+        ];
+        /** @nocollapse */ ContactListRest.ngInjectableDef = i0.defineInjectable({ factory: function ContactListRest_Factory() { return new ContactListRest(i0.inject(i1$1.Apollo)); }, token: ContactListRest, providedIn: "root" });
+        return ContactListRest;
+    }(i1$1.Query));
+    var templateObject_1;
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    var LanguagesRest = /** @class */ (function (_super) {
+        __extends(LanguagesRest, _super);
+        function LanguagesRest() {
+            var _this = _super !== null && _super.apply(this, arguments) || this;
+            _this.document = gql(templateObject_1$1 || (templateObject_1$1 = __makeTemplateObject(["\n        query language{\n            languages\n        }\n    "], ["\n        query language{\n            languages\n        }\n    "])));
+            return _this;
+        }
+        LanguagesRest.decorators = [
+            { type: i0.Injectable, args: [{
+                        providedIn: 'root'
+                    },] }
+        ];
+        /** @nocollapse */ LanguagesRest.ngInjectableDef = i0.defineInjectable({ factory: function LanguagesRest_Factory() { return new LanguagesRest(i0.inject(i1$1.Apollo)); }, token: LanguagesRest, providedIn: "root" });
+        return LanguagesRest;
+    }(i1$1.Query));
+    var templateObject_1$1;
 
     /**
      * @fileoverview added by tsickle
@@ -684,18 +737,16 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
-    /** @type {?} */
-    var language = gql(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n    query languages {\n        languages\n    }\n"], ["\n    query languages {\n        languages\n    }\n"])));
     var ContactsComponent = /** @class */ (function () {
-        function ContactsComponent(storageService, urlUtils, contactsHelper, router$$1, cd, groupingContact, keyboardHelper, apollo) {
+        function ContactsComponent(storageService, urlUtils, contactsHelper, contactListGQL, router$$1, cd, groupingContact, keyboardHelper) {
             this.storageService = storageService;
             this.urlUtils = urlUtils;
             this.contactsHelper = contactsHelper;
+            this.contactListGQL = contactListGQL;
             this.router = router$$1;
             this.cd = cd;
             this.groupingContact = groupingContact;
             this.keyboardHelper = keyboardHelper;
-            this.apollo = apollo;
             this.windowWidth = window.innerWidth;
             this.menuData = menu;
             this.showMenu = false;
@@ -708,16 +759,6 @@
             this.mobileHeight = this.contactsHelper.getMobileHeight('152px');
             this.desktopHeight = 0;
             this.searchText = '';
-            console.log(123123);
-            this.apollo
-                .watchQuery({ query: language })
-                .valueChanges
-                .subscribe(( /**
-         * @param {?} res
-         * @return {?}
-         */function (res) {
-                console.log(res);
-            }));
             this.getActiveLanguage();
             this.setContactsGql();
             this.uploadData();
@@ -805,18 +846,23 @@
          * @return {?}
          */
             function () {
-                // const domain = this.urlUtils.getSubDomain();
-                //
-                // this.contactsGql$ = this.contactListGQL.watch({ domain }).valueChanges.pipe(
-                //   pluck('data', 'apps'),
-                //   map(
-                //     apps =>
-                //       apps &&
-                //       apps
-                //         .filter(app => app.data.length)
-                //         .map(items => items.data && items.data)[0]
-                //   )
-                // );
+                /** @type {?} */
+                var domain = this.urlUtils.getSubDomain();
+                this.contactsGql$ = this.contactListGQL.watch({ domain: domain }).valueChanges.pipe(operators.pluck('data', 'apps'), operators.map(( /**
+                 * @param {?} apps
+                 * @return {?}
+                 */function (apps) {
+                    return apps &&
+                        apps
+                            .filter(( /**
+                     * @param {?} app
+                     * @return {?}
+                     */function (app) { return app.data.length; }))
+                            .map(( /**
+                     * @param {?} items
+                     * @return {?}
+                     */function (items) { return items.data && items.data; }))[0];
+                })));
             };
         /**
          * @private
@@ -875,17 +921,22 @@
          * @return {?}
          */
             function () {
-                // this.contactsGql$
-                //   .pipe(
-                //     takeUntil(this.subject),
-                //     map(items => this.countContacts(items))
-                //   )
-                //   .subscribe(contacts => {
-                //     this.contactsCopy = contacts;
-                //     this.contactsList$.next(contacts);
-                //
-                //     setTimeout(() => this.getHeightOfRightBlock());
-                //   });
+                var _this = this;
+                this.contactsGql$
+                    .pipe(operators.takeUntil(this.subject), operators.map(( /**
+             * @param {?} items
+             * @return {?}
+             */function (items) { return _this.countContacts(items); })))
+                    .subscribe(( /**
+             * @param {?} contacts
+             * @return {?}
+             */function (contacts) {
+                    _this.contactsCopy = contacts;
+                    _this.contactsList$.next(contacts);
+                    setTimeout(( /**
+                     * @return {?}
+                     */function () { return _this.getHeightOfRightBlock(); }));
+                }));
             };
         /**
          * @param {?} menuItem
@@ -1037,11 +1088,11 @@
                 { type: undefined, decorators: [{ type: i0.Inject, args: ['storageService',] }] },
                 { type: undefined, decorators: [{ type: i0.Inject, args: ['urlUtils',] }] },
                 { type: ContactsHelper },
+                { type: ContactListRest },
                 { type: router.Router },
                 { type: i0.ChangeDetectorRef },
                 { type: GroupingPipe },
-                { type: KeyboardHelper },
-                { type: apolloAngular.Apollo }
+                { type: KeyboardHelper }
             ];
         };
         ContactsComponent.propDecorators = {
@@ -1050,7 +1101,6 @@
         };
         return ContactsComponent;
     }());
-    var templateObject_1;
 
     /**
      * @fileoverview added by tsickle
@@ -1819,7 +1869,7 @@
             { type: i0.NgModule, args: [{
                         imports: [
                             sorbaUiComponents.SorbaUiComponentsModule,
-                            i1$1.IonicModule,
+                            i1$2.IonicModule,
                             common.CommonModule,
                             forms.ReactiveFormsModule,
                             core.AgmCoreModule.forRoot({
@@ -1828,7 +1878,7 @@
                         ],
                         exports: [
                             sorbaUiComponents.SorbaUiComponentsModule,
-                            i1$1.IonicModule,
+                            i1$2.IonicModule,
                             common.CommonModule,
                             forms.ReactiveFormsModule,
                             // components
@@ -1930,20 +1980,21 @@
      */
 
     exports.ContactsModule = ContactsModule;
-    exports.ɵk = ContactActionsComponent;
-    exports.ɵj = ContactDetailComponent;
-    exports.ɵl = FooterComponent;
-    exports.ɵg = HeaderComponent;
-    exports.ɵh = SearchContactsComponent;
-    exports.ɵi = SelectedMenuComponent;
-    exports.ɵm = TermsButtonComponent;
+    exports.ɵl = ContactActionsComponent;
+    exports.ɵk = ContactDetailComponent;
+    exports.ɵm = FooterComponent;
+    exports.ɵh = HeaderComponent;
+    exports.ɵi = SearchContactsComponent;
+    exports.ɵj = SelectedMenuComponent;
+    exports.ɵn = TermsButtonComponent;
     exports.ɵb = GroupingPipe;
-    exports.ɵn = StringLimitPipe;
+    exports.ɵo = StringLimitPipe;
+    exports.ɵd = ContactListRest;
     exports.ɵc = ContactsHelper;
-    exports.ɵd = KeyboardHelper;
-    exports.ɵf = SharedModule;
+    exports.ɵe = KeyboardHelper;
+    exports.ɵg = SharedModule;
     exports.ɵa = ContactsComponent;
-    exports.ɵe = RootPage;
+    exports.ɵf = RootPage;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
