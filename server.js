@@ -847,23 +847,18 @@
          * @return {?}
          */
             function () {
-                /** @type {?} */
-                var domain = this.urlUtils.getSubDomain();
-                this.contactsGql$ = this.contactListGQL.watch({ domain: domain }).valueChanges.pipe(operators.pluck('data', 'apps'), operators.map(( /**
-                 * @param {?} apps
-                 * @return {?}
-                 */function (apps) {
-                    return apps &&
-                        apps
-                            .filter(( /**
-                     * @param {?} app
-                     * @return {?}
-                     */function (app) { return app.data.length; }))
-                            .map(( /**
-                     * @param {?} items
-                     * @return {?}
-                     */function (items) { return items.data && items.data; }))[0];
-                })));
+                // const domain = this.urlUtils.getSubDomain();
+                //
+                // this.contactsGql$ = this.contactListGQL.watch({ domain }).valueChanges.pipe(
+                //   pluck('data', 'apps'),
+                //   map(
+                //     apps =>
+                //       apps &&
+                //       apps
+                //         .filter(app => app.data.length)
+                //         .map(items => items.data && items.data)[0]
+                //   )
+                // );
             };
         /**
          * @private
