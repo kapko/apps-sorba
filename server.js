@@ -1,10 +1,11 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@ionic-native/in-app-browser/ngx'), require('@ionic-native/in-app-browser/ngx/index'), require('graphql-tag'), require('@sorba-app/sorba-ui-components'), require('@ionic/angular'), require('@angular/common'), require('@agm/core'), require('@angular/platform-browser'), require('@angular/router'), require('@angular/forms'), require('rxjs/operators'), require('rxjs'), require('@ionic-native/document-viewer/ngx'), require('@ionic-native/file/ngx'), require('@ionic-native/file-opener/ngx'), require('@angular/core'), require('apollo-angular'), require('apollo-cache-inmemory')) :
-    typeof define === 'function' && define.amd ? define('contacts', ['exports', '@ionic-native/in-app-browser/ngx', '@ionic-native/in-app-browser/ngx/index', 'graphql-tag', '@sorba-app/sorba-ui-components', '@ionic/angular', '@angular/common', '@agm/core', '@angular/platform-browser', '@angular/router', '@angular/forms', 'rxjs/operators', 'rxjs', '@ionic-native/document-viewer/ngx', '@ionic-native/file/ngx', '@ionic-native/file-opener/ngx', '@angular/core', 'apollo-angular', 'apollo-cache-inmemory'], factory) :
-    (factory((global.contacts = {}),global.ngx,global.i1,global.gql,global.sorbaUiComponents,global.i1$1,global.ng.common,global.core,global.ng.platformBrowser,global.ng.router,global.ng.forms,global.rxjs.operators,global.rxjs,global.ngx$1,global.ngx$2,global.ngx$3,global.ng.core,global.i1$2,global.apolloCacheInmemory));
-}(this, (function (exports,ngx,i1,gql,sorbaUiComponents,i1$1,common,core,platformBrowser,router,forms,operators,rxjs,ngx$1,ngx$2,ngx$3,i0,i1$2,apolloCacheInmemory) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@ionic-native/in-app-browser/ngx'), require('@ionic-native/in-app-browser/ngx/index'), require('apollo-angular'), require('graphql-tag'), require('@sorba-app/sorba-ui-components'), require('@ionic/angular'), require('@angular/common'), require('@agm/core'), require('@angular/platform-browser'), require('@angular/router'), require('@angular/forms'), require('rxjs/operators'), require('rxjs'), require('@ionic-native/document-viewer/ngx'), require('@ionic-native/file/ngx'), require('@ionic-native/file-opener/ngx'), require('@angular/core')) :
+    typeof define === 'function' && define.amd ? define('contacts', ['exports', '@ionic-native/in-app-browser/ngx', '@ionic-native/in-app-browser/ngx/index', 'apollo-angular', 'graphql-tag', '@sorba-app/sorba-ui-components', '@ionic/angular', '@angular/common', '@agm/core', '@angular/platform-browser', '@angular/router', '@angular/forms', 'rxjs/operators', 'rxjs', '@ionic-native/document-viewer/ngx', '@ionic-native/file/ngx', '@ionic-native/file-opener/ngx', '@angular/core'], factory) :
+    (factory((global.contacts = {}),global.ngx,global.i1,global.i1$1,global.gql,global.sorbaUiComponents,global.i1$2,global.ng.common,global.core,global.ng.platformBrowser,global.ng.router,global.ng.forms,global.rxjs.operators,global.rxjs,global.ngx$1,global.ngx$2,global.ngx$3,global.ng.core));
+}(this, (function (exports,ngx,i1,i1$1,gql,sorbaUiComponents,i1$2,common,core,platformBrowser,router,forms,operators,rxjs,ngx$1,ngx$2,ngx$3,i0) { 'use strict';
 
     gql = gql && gql.hasOwnProperty('default') ? gql['default'] : gql;
+
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
     Licensed under the Apache License, Version 2.0 (the "License"); you may not use
@@ -597,10 +598,10 @@
         /** @nocollapse */
         PlatformHelper.ctorParameters = function () {
             return [
-                { type: i1$1.Platform }
+                { type: i1$2.Platform }
             ];
         };
-        /** @nocollapse */ PlatformHelper.ngInjectableDef = i0.defineInjectable({ factory: function PlatformHelper_Factory() { return new PlatformHelper(i0.inject(i1$1.Platform)); }, token: PlatformHelper, providedIn: "root" });
+        /** @nocollapse */ PlatformHelper.ngInjectableDef = i0.defineInjectable({ factory: function PlatformHelper_Factory() { return new PlatformHelper(i0.inject(i1$2.Platform)); }, token: PlatformHelper, providedIn: "root" });
         return PlatformHelper;
     }());
 
@@ -620,9 +621,9 @@
                         providedIn: 'root'
                     },] }
         ];
-        /** @nocollapse */ ContactListRest.ngInjectableDef = i0.defineInjectable({ factory: function ContactListRest_Factory() { return new ContactListRest(i0.inject(i1$2.Apollo)); }, token: ContactListRest, providedIn: "root" });
+        /** @nocollapse */ ContactListRest.ngInjectableDef = i0.defineInjectable({ factory: function ContactListRest_Factory() { return new ContactListRest(i0.inject(i1$1.Apollo)); }, token: ContactListRest, providedIn: "root" });
         return ContactListRest;
-    }(i1$2.Query));
+    }(i1$1.Query));
     var templateObject_1;
 
     /**
@@ -641,9 +642,9 @@
                         providedIn: 'root'
                     },] }
         ];
-        /** @nocollapse */ LanguagesRest.ngInjectableDef = i0.defineInjectable({ factory: function LanguagesRest_Factory() { return new LanguagesRest(i0.inject(i1$2.Apollo)); }, token: LanguagesRest, providedIn: "root" });
+        /** @nocollapse */ LanguagesRest.ngInjectableDef = i0.defineInjectable({ factory: function LanguagesRest_Factory() { return new LanguagesRest(i0.inject(i1$1.Apollo)); }, token: LanguagesRest, providedIn: "root" });
         return LanguagesRest;
-    }(i1$2.Query));
+    }(i1$1.Query));
     var templateObject_1$1;
 
     /**
@@ -737,10 +738,9 @@
      * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     var ContactsComponent = /** @class */ (function () {
-        function ContactsComponent(storageService, urlUtils, appService, contactsHelper, contactListGQL, router$$1, cd, groupingContact, keyboardHelper) {
+        function ContactsComponent(storageService, urlUtils, contactsHelper, contactListGQL, router$$1, cd, groupingContact, keyboardHelper) {
             this.storageService = storageService;
             this.urlUtils = urlUtils;
-            this.appService = appService;
             this.contactsHelper = contactsHelper;
             this.contactListGQL = contactListGQL;
             this.router = router$$1;
@@ -759,8 +759,8 @@
             this.mobileHeight = this.contactsHelper.getMobileHeight('152px');
             this.desktopHeight = 0;
             this.searchText = '';
+            console.log(123);
             this.getActiveLanguage();
-            this.getActiveDomain();
             this.setContactsGql();
             this.uploadData();
             this.contactsHelper.headerData.next({
@@ -842,40 +842,17 @@
          * @private
          * @return {?}
          */
-        ContactsComponent.prototype.getActiveDomain = /**
-         * @private
-         * @return {?}
-         */
-            function () {
-                var _this = this;
-                if (!this.isMobile) {
-                    this.activeDomain = this.urlUtils.getSubDomain();
-                }
-                else {
-                    this.appService
-                        .getActiveDomain()
-                        .pipe(operators.takeUntil(this.subject))
-                        .subscribe(( /**
-                 * @param {?} activeDomain
-                 * @return {?}
-                 */function (activeDomain) { return (_this.activeDomain = activeDomain); }));
-                }
-            };
-        /**
-         * @private
-         * @return {?}
-         */
         ContactsComponent.prototype.setContactsGql = /**
          * @private
          * @return {?}
          */
             function () {
-                this.contactsGql$ = this.contactListGQL
-                    .watch({ domain: this.activeDomain })
-                    .valueChanges.pipe(operators.pluck('data', 'apps'), operators.map(( /**
-             * @param {?} apps
-             * @return {?}
-             */function (apps) {
+                /** @type {?} */
+                var domain = this.urlUtils.getSubDomain();
+                this.contactsGql$ = this.contactListGQL.watch({ domain: domain }).valueChanges.pipe(operators.pluck('data', 'apps'), operators.map(( /**
+                 * @param {?} apps
+                 * @return {?}
+                 */function (apps) {
                     return apps &&
                         apps
                             .filter(( /**
@@ -1103,7 +1080,7 @@
                         template: "<!--sidebar-->\n<sr-sidemenu\n  *ngIf=\"!showMenu\"\n  openMenuText=\"menu\"\n  closeMenuText=\"close\"\n  [data]=\"menuData\"\n  [windowWidth]=\"windowWidth\"\n  [isMenuFloat]=\"menuFloat\"\n></sr-sidemenu>\n\n<sr-content-card\n  class=\"contacts-container\"\n  *ngIf=\"(contactsList$ | async)?.length; else loading\"\n>\n  <div class=\"left-panel\" #leftPanel>\n    <header class=\"contacts-list-header\">\n      <div class=\"top-block\">\n        <lib-selected-menu\n          [items]=\"menuItems$ | async\"\n          (selectedEvent)=\"filterByMenu($event)\"\n        ></lib-selected-menu>\n        <sr-button\n          *ngIf=\"!showMenu\"\n          buttonType=\"icon\"\n          svgIcon=\"contact-add\"\n          class=\"contact-add\"\n        ></sr-button>\n      </div>\n\n      <!-- search contacts -->\n      <lib-search-contacts\n        [searchList]=\"contactsList$ | async\"\n        (searchEvent)=\"searchEvent($event)\"\n        (selectContactItem)=\"selectContactItem($event)\"\n      ></lib-search-contacts>\n    </header>\n\n    <sr-contacts-list\n      *ngIf=\"!searchText.length\"\n      [data]=\"contactsList$ | async | groupingContact\"\n      [scrollContainerMaxHeight]=\"leftPanelHeight\"\n      [windowWidth]=\"windowWidth\"\n      [activeItemId]=\"(activeContact$ | async)?.id\"\n      (itemClickHandler)=\"selectContactItem($event)\"\n      [scrollIndicators]=\"!isMobile\"\n    ></sr-contacts-list>\n  </div>\n\n  <!-- user details column-->\n  <div class=\"right-panel\" #rightPanel *ngIf=\"!isMobile\">\n    <div class=\"contact-details-body\">\n      <lib-contact-detail></lib-contact-detail>\n    </div>\n  </div>\n</sr-content-card>\n\n<ng-template #loading><ion-spinner></ion-spinner></ng-template>\n",
                         encapsulation: i0.ViewEncapsulation.None,
                         providers: [GroupingPipe],
-                        styles: [".contacts-list-header .top-block{display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;-webkit-box-pack:justify;justify-content:space-between;padding:14px 8px 14px 12px}.contacts-list-header .mat-button-wrapper sr-text{-webkit-box-ordinal-group:0;order:-1}.contacts-list-header .mat-icon-button.text{font-weight:600}.contact-add .mat-icon-button.icon{color:var(--sr-base-color)}.search-field .input-wrapper{display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;height:48px;padding:4px 16px 4px 28px;border-top:1px solid var(--sr-border-color);border-bottom:1px solid var(--sr-border-color)}.search-field .input-wrapper sr-icon{color:var(--base-gray-64)}.search-field .input-wrapper input{width:100%;padding:0;border:0;font-weight:600}.search-field .input-wrapper .search-icon{margin-right:16px}.search-field .no-data{display:block;padding:16px 16px 16px 68px}@media (max-width:767px){.contacts-container .contact-add{position:fixed;right:8px;bottom:8px;z-index:71}}ion-spinner{margin:0 auto;display:block}@media (min-width:768px){.contacts-container .content-card{display:-webkit-box;display:flex}.contacts-container .left-panel{width:263px;border-right:1px solid var(--sr-border-color);border-bottom-left-radius:5px;overflow:hidden}.contacts-container .right-panel{width:calc(100% - 263px)}.contacts-list-header .top-block{height:72px;padding:3px 16px 4px 24px}.filter-menu{min-width:226px;max-width:300px;margin:8px 0 0 -24px}}.info-section{padding:16px 12px;border-top:1px solid var(--sr-border-color)}.info-section .section-header{display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;-webkit-box-pack:justify;justify-content:space-between;min-height:40px}.info-section .section-header sr-heading{color:var(--sr-light-text-color)}.info-section .section-body{margin:10px 0 8px}.info-section .section-info-field{display:-webkit-box;display:flex}.info-section .section-info-field:not(:first-child){margin-top:11px}.info-section .section-info-field .field-content{-webkit-box-flex:1;flex-grow:1}.info-section .section-info-field .field-content.contact{display:-webkit-box;display:flex}.info-section .section-info-field .field-content.contact sr-avatar{margin-right:12px}.info-section .section-info-field .field-content.contact sr-link{display:block;margin-top:6px}.info-section .section-info-field .field-content.project{display:-webkit-box;display:flex}.info-section .section-info-field .field-content.project sr-icon{color:var(--base-gray-64)}.info-section .section-info-field .field-content.project sr-price-label{display:block;margin:6px 0 0}.info-section .section-info-field .field-content.project .icon-wrapper{width:32px;margin-right:12px;text-align:center}.info-section .section-info-field .field-content.project .divider{display:none}.info-section .section-info-field .field-content.project .field{display:block}@media (min-width:768px){.info-section{padding:23px 24px 21px}.info-section .section-body{margin:10px 0 6px}.info-section .section-info-field .field-content.project sr-price-label{display:inline-block;margin:0 0 0 5px}.info-section .section-info-field .field-content.project .icon-wrapper{width:32px;display:-webkit-box;display:flex;-webkit-box-pack:center;justify-content:center;margin-right:12px}.info-section .section-info-field .field-content.project .divider{display:inline-block;margin:0 2px;color:var(--sr-light-text-color)}.info-section .section-info-field .field-content.project .field{display:inline-block}.info-section .section-info-field .field-content.project .field.status{display:block}}@media (min-width:1280px){.info-section .section-info-field{position:relative;cursor:pointer}.info-section .section-info-field sr-actions{opacity:0;visibility:hidden;-webkit-transition:250ms;transition:250ms}.info-section .section-info-field:hover sr-actions{opacity:1;visibility:visible}}"]
+                        styles: [".contacts-list-header .top-block{display:flex;align-items:center;justify-content:space-between;padding:14px 8px 14px 12px}.contacts-list-header .mat-button-wrapper sr-text{order:-1}.contacts-list-header .mat-icon-button.text{font-weight:600}.contact-add .mat-icon-button.icon{color:var(--sr-base-color)}.search-field .input-wrapper{display:flex;align-items:center;height:48px;padding:4px 16px 4px 28px;border-top:1px solid var(--sr-border-color);border-bottom:1px solid var(--sr-border-color)}.search-field .input-wrapper sr-icon{color:var(--base-gray-64)}.search-field .input-wrapper input{width:100%;padding:0;border:0;font-weight:600}.search-field .input-wrapper .search-icon{margin-right:16px}.search-field .no-data{display:block;padding:16px 16px 16px 68px}@media (max-width:767px){.contacts-container .contact-add{position:fixed;right:8px;bottom:8px;z-index:71}}ion-spinner{margin:0 auto;display:block}.info-section{padding:16px 12px;border-top:1px solid var(--sr-border-color)}.info-section .section-header{display:flex;align-items:center;justify-content:space-between;min-height:40px}.info-section .section-header sr-heading{color:var(--sr-light-text-color)}.info-section .section-body{margin:10px 0 8px}.info-section .section-info-field{display:flex}.info-section .section-info-field:not(:first-child){margin-top:11px}.info-section .section-info-field .field-content{flex-grow:1}.info-section .section-info-field .field-content.contact{display:flex}.info-section .section-info-field .field-content.contact sr-avatar{margin-right:12px}.info-section .section-info-field .field-content.contact sr-link{display:block;margin-top:6px}.info-section .section-info-field .field-content.project{display:flex}.info-section .section-info-field .field-content.project sr-icon{color:var(--base-gray-64)}.info-section .section-info-field .field-content.project sr-price-label{display:block;margin:6px 0 0}.info-section .section-info-field .field-content.project .icon-wrapper{width:32px;margin-right:12px;text-align:center}.info-section .section-info-field .field-content.project .divider{display:none}.info-section .section-info-field .field-content.project .field{display:block}@media (min-width:768px){.contacts-container .content-card{display:flex}.contacts-container .left-panel{width:263px;border-right:1px solid var(--sr-border-color);border-bottom-left-radius:5px;overflow:hidden}.contacts-container .right-panel{width:calc(100% - 263px)}.contacts-list-header .top-block{height:72px;padding:3px 16px 4px 24px}.filter-menu{min-width:226px;max-width:300px;margin:8px 0 0 -24px}.info-section{padding:23px 24px 21px}.info-section .section-body{margin:10px 0 6px}.info-section .section-info-field .field-content.project sr-price-label{display:inline-block;margin:0 0 0 5px}.info-section .section-info-field .field-content.project .icon-wrapper{width:32px;display:flex;justify-content:center;margin-right:12px}.info-section .section-info-field .field-content.project .divider{display:inline-block;margin:0 2px;color:var(--sr-light-text-color)}.info-section .section-info-field .field-content.project .field{display:inline-block}.info-section .section-info-field .field-content.project .field.status{display:block}}@media (min-width:1280px){.info-section .section-info-field{position:relative;cursor:pointer}.info-section .section-info-field sr-actions{opacity:0;visibility:hidden;transition:250ms}.info-section .section-info-field:hover sr-actions{opacity:1;visibility:visible}}"]
                     }] }
         ];
         /** @nocollapse */
@@ -1111,7 +1088,6 @@
             return [
                 { type: undefined, decorators: [{ type: i0.Inject, args: ['storageService',] }] },
                 { type: undefined, decorators: [{ type: i0.Inject, args: ['urlUtils',] }] },
-                { type: undefined, decorators: [{ type: i0.Inject, args: ['appService',] }] },
                 { type: ContactsHelper },
                 { type: ContactListRest },
                 { type: router.Router },
@@ -1627,7 +1603,7 @@
             { type: i0.Component, args: [{
                         selector: 'lib-contact-actions',
                         template: "<header class=\"contact-details-header\">\n  <div class=\"contact-base-info\">\n    <sr-avatar\n      [avatarValue]=\"fullName[0]\"\n      [avatarSize]=\"avatarSize\"\n    ></sr-avatar>\n    <sr-heading [headingText]=\"fullName\"></sr-heading>\n  </div>\n\n  <div class=\"contact-actions\" *ngIf=\"showContact\">\n    <sr-menu\n      menuButtonType=\"icon\"\n      svgIcon=\"more-vertical\"\n      class=\"contact-actions\"\n    >\n      <sr-menu-body>\n        <sr-menu-item\n          [hasCheckMark]=\"true\"\n          itemsPosition=\"between\"\n          class=\"contact-action\"\n        >\n          <sr-icon svgIcon=\"file-export\"></sr-icon>\n          <sr-text>Export</sr-text>\n        </sr-menu-item>\n        <sr-menu-item\n          [hasCheckMark]=\"true\"\n          itemsPosition=\"between\"\n          class=\"contact-action\"\n        >\n          <sr-icon svgIcon=\"print\"></sr-icon>\n          <sr-text>Print</sr-text>\n        </sr-menu-item>\n        <sr-menu-item\n          [hasCheckMark]=\"true\"\n          itemsPosition=\"between\"\n          class=\"contact-action\"\n        >\n          <sr-icon svgIcon=\"edit\"></sr-icon>\n          <sr-text>Edit</sr-text>\n        </sr-menu-item>\n        <sr-menu-item [hasCheckMark]=\"true\" class=\"contact-action\">\n          <sr-icon svgIcon=\"delete\"></sr-icon>\n          <sr-text>Delete</sr-text>\n        </sr-menu-item>\n      </sr-menu-body>\n    </sr-menu>\n  </div>\n\n  <div class=\"contact-actions\" *ngIf=\"showActions\">\n    <sr-button buttonType=\"icon\" svgIcon=\"file-export\"></sr-button>\n    <sr-button buttonType=\"icon\" svgIcon=\"print\"></sr-button>\n    <sr-button buttonType=\"icon\" svgIcon=\"edit\"></sr-button>\n    <sr-button buttonType=\"icon\" svgIcon=\"delete\"></sr-button>\n    <span class=\"divider\"></span>\n    <sr-button buttonType=\"icon\" svgIcon=\"three-column-view\"></sr-button>\n  </div>\n</header>\n",
-                        styles: [".contact-details-header{display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;-webkit-box-pack:justify;justify-content:space-between;padding:13px 12px 10px;border-bottom:1px solid var(--sr-border-color)}.contact-details-header sr-avatar{margin-right:8px}.contact-details-header sr-heading{text-overflow:ellipsis;white-space:nowrap;overflow:hidden}.contact-details-header ::ng-deep .heading{text-overflow:ellipsis;white-space:nowrap;overflow:hidden}.contact-base-info{display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;text-overflow:ellipsis;white-space:nowrap;overflow:hidden}.contact-action sr-icon{margin-right:16px;color:var(--base-gray-64)}@media (min-width:768px){.contact-details-header{padding:16px 16px 16px 24px}.contact-details-header sr-avatar{margin-right:12px}.contact-details-header sr-button{margin-left:8px}.contact-details-header .divider{width:1px;margin-left:8px;background:var(--sr-border-color)}.contact-details-header .contact-actions{display:-webkit-box;display:flex}}"]
+                        styles: [".contact-details-header{display:flex;align-items:center;justify-content:space-between;padding:13px 12px 10px;border-bottom:1px solid var(--sr-border-color)}.contact-details-header sr-avatar{margin-right:8px}.contact-details-header sr-heading{text-overflow:ellipsis;white-space:nowrap;overflow:hidden}.contact-details-header ::ng-deep .heading{text-overflow:ellipsis;white-space:nowrap;overflow:hidden}.contact-base-info{display:flex;align-items:center;text-overflow:ellipsis;white-space:nowrap;overflow:hidden}.contact-action sr-icon{margin-right:16px;color:var(--base-gray-64)}@media (min-width:768px){.contact-details-header{padding:16px 16px 16px 24px}.contact-details-header sr-avatar{margin-right:12px}.contact-details-header sr-button{margin-left:8px}.contact-details-header .divider{width:1px;margin-left:8px;background:var(--sr-border-color)}.contact-details-header .contact-actions{display:flex}}"]
                     }] }
         ];
         /** @nocollapse */
@@ -1893,7 +1869,7 @@
             { type: i0.NgModule, args: [{
                         imports: [
                             sorbaUiComponents.SorbaUiComponentsModule,
-                            i1$1.IonicModule,
+                            i1$2.IonicModule,
                             common.CommonModule,
                             forms.ReactiveFormsModule,
                             core.AgmCoreModule.forRoot({
@@ -1902,7 +1878,7 @@
                         ],
                         exports: [
                             sorbaUiComponents.SorbaUiComponentsModule,
-                            i1$1.IonicModule,
+                            i1$2.IonicModule,
                             common.CommonModule,
                             forms.ReactiveFormsModule,
                             // components
@@ -1956,114 +1932,6 @@
      * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     /** @type {?} */
-    var result = {
-        "__schema": {
-            "types": [
-                {
-                    "kind": "INTERFACE",
-                    "name": "Node",
-                    "possibleTypes": [
-                        {
-                            "name": "User"
-                        },
-                        {
-                            "name": "Session"
-                        },
-                        {
-                            "name": "Permission"
-                        },
-                        {
-                            "name": "Template"
-                        },
-                        {
-                            "name": "App"
-                        },
-                        {
-                            "name": "Company"
-                        }
-                    ]
-                },
-                {
-                    "kind": "UNION",
-                    "name": "AppContentUnion",
-                    "possibleTypes": [
-                        {
-                            "name": "AppContact"
-                        }
-                    ]
-                },
-                {
-                    "kind": "INTERFACE",
-                    "name": "AppContent",
-                    "possibleTypes": [
-                        {
-                            "name": "AppContact"
-                        }
-                    ]
-                }
-            ]
-        }
-    };
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-    /** @type {?} */
-    var fragmentMatcher = new apolloCacheInmemory.IntrospectionFragmentMatcher({
-        introspectionQueryResultData: result
-    });
-    /**
-     * @return {?}
-     */
-    function createApollo() {
-        /** @type {?} */
-        var defaultOptions = {
-            watchQuery: {
-                errorPolicy: 'all'
-            },
-            query: {
-                errorPolicy: 'all'
-            },
-            mutate: {
-                errorPolicy: 'all'
-            }
-        };
-        return {
-            cache: new apolloCacheInmemory.InMemoryCache({
-                fragmentMatcher: fragmentMatcher,
-                dataIdFromObject: ( /**
-                 * @param {?} object
-                 * @return {?}
-                 */function (object) { return object.id || null; }),
-                addTypename: true
-            }),
-            defaultOptions: defaultOptions,
-            connectToDevTools: true
-        };
-    }
-    var GraphQLModule = /** @class */ (function () {
-        function GraphQLModule() {
-        }
-        GraphQLModule.decorators = [
-            { type: i0.NgModule, args: [{
-                        exports: [i1$2.ApolloModule],
-                        providers: [
-                            {
-                                provide: i1$2.APOLLO_OPTIONS,
-                                useFactory: createApollo,
-                            }
-                        ]
-                    },] }
-        ];
-        return GraphQLModule;
-    }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-    /** @type {?} */
     var routes = [
         {
             path: '',
@@ -2095,7 +1963,7 @@
             { type: i0.NgModule, args: [{
                         declarations: [ContactsComponent, RootPage],
                         exports: [ContactsComponent, RootPage],
-                        imports: [GraphQLModule, SharedModule, router.RouterModule.forChild(routes)]
+                        imports: [SharedModule, router.RouterModule.forChild(routes)]
                     },] }
         ];
         return ContactsModule;
@@ -2112,22 +1980,20 @@
      */
 
     exports.ContactsModule = ContactsModule;
-    exports.ɵn = ContactActionsComponent;
-    exports.ɵm = ContactDetailComponent;
-    exports.ɵo = FooterComponent;
-    exports.ɵj = HeaderComponent;
-    exports.ɵk = SearchContactsComponent;
-    exports.ɵl = SelectedMenuComponent;
-    exports.ɵp = TermsButtonComponent;
+    exports.ɵl = ContactActionsComponent;
+    exports.ɵk = ContactDetailComponent;
+    exports.ɵm = FooterComponent;
+    exports.ɵh = HeaderComponent;
+    exports.ɵi = SearchContactsComponent;
+    exports.ɵj = SelectedMenuComponent;
+    exports.ɵn = TermsButtonComponent;
     exports.ɵb = GroupingPipe;
-    exports.ɵq = StringLimitPipe;
+    exports.ɵo = StringLimitPipe;
     exports.ɵd = ContactListRest;
     exports.ɵc = ContactsHelper;
     exports.ɵe = KeyboardHelper;
-    exports.ɵi = SharedModule;
+    exports.ɵg = SharedModule;
     exports.ɵa = ContactsComponent;
-    exports.ɵh = GraphQLModule;
-    exports.ɵg = createApollo;
     exports.ɵf = RootPage;
 
     Object.defineProperty(exports, '__esModule', { value: true });
