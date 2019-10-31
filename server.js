@@ -1,8 +1,10 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@ionic-native/in-app-browser/ngx'), require('@ionic-native/in-app-browser/ngx/index'), require('@sorba-app/sorba-ui-components'), require('@ionic/angular'), require('@angular/common'), require('@agm/core'), require('@angular/platform-browser'), require('@angular/router'), require('@angular/forms'), require('rxjs/operators'), require('rxjs'), require('@ionic-native/document-viewer/ngx'), require('@ionic-native/file/ngx'), require('@ionic-native/file-opener/ngx'), require('@angular/core')) :
-    typeof define === 'function' && define.amd ? define('contacts', ['exports', '@ionic-native/in-app-browser/ngx', '@ionic-native/in-app-browser/ngx/index', '@sorba-app/sorba-ui-components', '@ionic/angular', '@angular/common', '@agm/core', '@angular/platform-browser', '@angular/router', '@angular/forms', 'rxjs/operators', 'rxjs', '@ionic-native/document-viewer/ngx', '@ionic-native/file/ngx', '@ionic-native/file-opener/ngx', '@angular/core'], factory) :
-    (factory((global.contacts = {}),global.ngx,global.i1,global.sorbaUiComponents,global.i1$1,global.ng.common,global.core,global.ng.platformBrowser,global.ng.router,global.ng.forms,global.rxjs.operators,global.rxjs,global.ngx$1,global.ngx$2,global.ngx$3,global.ng.core));
-}(this, (function (exports,ngx,i1,sorbaUiComponents,i1$1,common,core,platformBrowser,router,forms,operators,rxjs,ngx$1,ngx$2,ngx$3,i0) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('apollo-angular'), require('@ionic-native/in-app-browser/ngx'), require('@ionic-native/in-app-browser/ngx/index'), require('graphql-tag'), require('@sorba-app/sorba-ui-components'), require('@ionic/angular'), require('@angular/common'), require('@agm/core'), require('@angular/platform-browser'), require('@angular/router'), require('@angular/forms'), require('rxjs/operators'), require('rxjs'), require('@ionic-native/document-viewer/ngx'), require('@ionic-native/file/ngx'), require('@ionic-native/file-opener/ngx'), require('@angular/core')) :
+    typeof define === 'function' && define.amd ? define('contacts', ['exports', 'apollo-angular', '@ionic-native/in-app-browser/ngx', '@ionic-native/in-app-browser/ngx/index', 'graphql-tag', '@sorba-app/sorba-ui-components', '@ionic/angular', '@angular/common', '@agm/core', '@angular/platform-browser', '@angular/router', '@angular/forms', 'rxjs/operators', 'rxjs', '@ionic-native/document-viewer/ngx', '@ionic-native/file/ngx', '@ionic-native/file-opener/ngx', '@angular/core'], factory) :
+    (factory((global.contacts = {}),global.apolloAngular,global.ngx,global.i1,global.gql,global.sorbaUiComponents,global.i1$1,global.ng.common,global.core,global.ng.platformBrowser,global.ng.router,global.ng.forms,global.rxjs.operators,global.rxjs,global.ngx$1,global.ngx$2,global.ngx$3,global.ng.core));
+}(this, (function (exports,apolloAngular,ngx,i1,gql,sorbaUiComponents,i1$1,common,core,platformBrowser,router,forms,operators,rxjs,ngx$1,ngx$2,ngx$3,i0) { 'use strict';
+
+    gql = gql && gql.hasOwnProperty('default') ? gql['default'] : gql;
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
@@ -128,6 +130,15 @@
                 return { value: o && o[i++], done: !o };
             }
         };
+    }
+    function __makeTemplateObject(cooked, raw) {
+        if (Object.defineProperty) {
+            Object.defineProperty(cooked, "raw", { value: raw });
+        }
+        else {
+            cooked.raw = raw;
+        }
+        return cooked;
     }
 
     /**
@@ -670,8 +681,10 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
+    /** @type {?} */
+    var language = gql(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n    query languages {\n        languages\n    }\n"], ["\n    query languages {\n        languages\n    }\n"])));
     var ContactsComponent = /** @class */ (function () {
-        function ContactsComponent(storageService, urlUtils, contactsHelper, router$$1, cd, groupingContact, keyboardHelper) {
+        function ContactsComponent(storageService, urlUtils, contactsHelper, router$$1, cd, groupingContact, keyboardHelper, apollo) {
             this.storageService = storageService;
             this.urlUtils = urlUtils;
             this.contactsHelper = contactsHelper;
@@ -679,6 +692,7 @@
             this.cd = cd;
             this.groupingContact = groupingContact;
             this.keyboardHelper = keyboardHelper;
+            this.apollo = apollo;
             this.windowWidth = window.innerWidth;
             this.menuData = menu;
             this.showMenu = false;
@@ -691,6 +705,16 @@
             this.mobileHeight = this.contactsHelper.getMobileHeight('152px');
             this.desktopHeight = 0;
             this.searchText = '';
+            console.log(123123);
+            this.apollo
+                .watchQuery({ query: language })
+                .valueChanges
+                .subscribe(( /**
+         * @param {?} res
+         * @return {?}
+         */function (res) {
+                console.log(res);
+            }));
             this.getActiveLanguage();
             this.setContactsGql();
             this.uploadData();
@@ -1013,7 +1037,8 @@
                 { type: router.Router },
                 { type: i0.ChangeDetectorRef },
                 { type: GroupingPipe },
-                { type: KeyboardHelper }
+                { type: KeyboardHelper },
+                { type: apolloAngular.Apollo }
             ];
         };
         ContactsComponent.propDecorators = {
@@ -1022,6 +1047,7 @@
         };
         return ContactsComponent;
     }());
+    var templateObject_1;
 
     /**
      * @fileoverview added by tsickle
