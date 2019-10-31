@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@ionic-native/in-app-browser/ngx'), require('@ionic-native/in-app-browser/ngx/index'), require('apollo-angular'), require('graphql-tag'), require('@sorba-app/sorba-ui-components'), require('@ionic/angular'), require('@angular/common'), require('@agm/core'), require('@angular/platform-browser'), require('@angular/router'), require('@angular/forms'), require('rxjs/operators'), require('rxjs'), require('@ionic-native/document-viewer/ngx'), require('@ionic-native/file/ngx'), require('@ionic-native/file-opener/ngx'), require('@angular/core')) :
-    typeof define === 'function' && define.amd ? define('contacts', ['exports', '@ionic-native/in-app-browser/ngx', '@ionic-native/in-app-browser/ngx/index', 'apollo-angular', 'graphql-tag', '@sorba-app/sorba-ui-components', '@ionic/angular', '@angular/common', '@agm/core', '@angular/platform-browser', '@angular/router', '@angular/forms', 'rxjs/operators', 'rxjs', '@ionic-native/document-viewer/ngx', '@ionic-native/file/ngx', '@ionic-native/file-opener/ngx', '@angular/core'], factory) :
-    (factory((global.contacts = {}),global.ngx,global.i1,global.i1$1,global.gql,global.sorbaUiComponents,global.i1$2,global.ng.common,global.core,global.ng.platformBrowser,global.ng.router,global.ng.forms,global.rxjs.operators,global.rxjs,global.ngx$1,global.ngx$2,global.ngx$3,global.ng.core));
-}(this, (function (exports,ngx,i1,i1$1,gql,sorbaUiComponents,i1$2,common,core,platformBrowser,router,forms,operators,rxjs,ngx$1,ngx$2,ngx$3,i0) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@ionic-native/in-app-browser/ngx'), require('@ionic-native/in-app-browser/ngx/index'), require('graphql-tag'), require('@sorba-app/sorba-ui-components'), require('@ionic/angular'), require('@angular/common'), require('@agm/core'), require('@angular/platform-browser'), require('@angular/router'), require('@angular/forms'), require('rxjs/operators'), require('rxjs'), require('@ionic-native/document-viewer/ngx'), require('@ionic-native/file/ngx'), require('@ionic-native/file-opener/ngx'), require('@angular/core'), require('apollo-angular'), require('apollo-angular-link-http'), require('@angular/common/http')) :
+    typeof define === 'function' && define.amd ? define('contacts', ['exports', '@ionic-native/in-app-browser/ngx', '@ionic-native/in-app-browser/ngx/index', 'graphql-tag', '@sorba-app/sorba-ui-components', '@ionic/angular', '@angular/common', '@agm/core', '@angular/platform-browser', '@angular/router', '@angular/forms', 'rxjs/operators', 'rxjs', '@ionic-native/document-viewer/ngx', '@ionic-native/file/ngx', '@ionic-native/file-opener/ngx', '@angular/core', 'apollo-angular', 'apollo-angular-link-http', '@angular/common/http'], factory) :
+    (factory((global.contacts = {}),global.ngx,global.i1,global.gql,global.sorbaUiComponents,global.i1$1,global.ng.common,global.core,global.ng.platformBrowser,global.ng.router,global.ng.forms,global.rxjs.operators,global.rxjs,global.ngx$1,global.ngx$2,global.ngx$3,global.ng.core,global.i1$2,global.apolloAngularLinkHttp,global.ng.common.http));
+}(this, (function (exports,ngx,i1,gql,sorbaUiComponents,i1$1,common,core,platformBrowser,router,forms,operators,rxjs,ngx$1,ngx$2,ngx$3,i0,i1$2,apolloAngularLinkHttp,http) { 'use strict';
 
     gql = gql && gql.hasOwnProperty('default') ? gql['default'] : gql;
 
@@ -598,10 +598,10 @@
         /** @nocollapse */
         PlatformHelper.ctorParameters = function () {
             return [
-                { type: i1$2.Platform }
+                { type: i1$1.Platform }
             ];
         };
-        /** @nocollapse */ PlatformHelper.ngInjectableDef = i0.defineInjectable({ factory: function PlatformHelper_Factory() { return new PlatformHelper(i0.inject(i1$2.Platform)); }, token: PlatformHelper, providedIn: "root" });
+        /** @nocollapse */ PlatformHelper.ngInjectableDef = i0.defineInjectable({ factory: function PlatformHelper_Factory() { return new PlatformHelper(i0.inject(i1$1.Platform)); }, token: PlatformHelper, providedIn: "root" });
         return PlatformHelper;
     }());
 
@@ -621,9 +621,9 @@
                         providedIn: 'root'
                     },] }
         ];
-        /** @nocollapse */ ContactListRest.ngInjectableDef = i0.defineInjectable({ factory: function ContactListRest_Factory() { return new ContactListRest(i0.inject(i1$1.Apollo)); }, token: ContactListRest, providedIn: "root" });
+        /** @nocollapse */ ContactListRest.ngInjectableDef = i0.defineInjectable({ factory: function ContactListRest_Factory() { return new ContactListRest(i0.inject(i1$2.Apollo)); }, token: ContactListRest, providedIn: "root" });
         return ContactListRest;
-    }(i1$1.Query));
+    }(i1$2.Query));
     var templateObject_1;
 
     /**
@@ -642,9 +642,9 @@
                         providedIn: 'root'
                     },] }
         ];
-        /** @nocollapse */ LanguagesRest.ngInjectableDef = i0.defineInjectable({ factory: function LanguagesRest_Factory() { return new LanguagesRest(i0.inject(i1$1.Apollo)); }, token: LanguagesRest, providedIn: "root" });
+        /** @nocollapse */ LanguagesRest.ngInjectableDef = i0.defineInjectable({ factory: function LanguagesRest_Factory() { return new LanguagesRest(i0.inject(i1$2.Apollo)); }, token: LanguagesRest, providedIn: "root" });
         return LanguagesRest;
-    }(i1$1.Query));
+    }(i1$2.Query));
     var templateObject_1$1;
 
     /**
@@ -738,10 +738,11 @@
      * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     var ContactsComponent = /** @class */ (function () {
-        function ContactsComponent(storageService, urlUtils, contactsHelper, router$$1, cd, groupingContact, keyboardHelper) {
+        function ContactsComponent(storageService, urlUtils, contactsHelper, contactListGQL, router$$1, cd, groupingContact, keyboardHelper) {
             this.storageService = storageService;
             this.urlUtils = urlUtils;
             this.contactsHelper = contactsHelper;
+            this.contactListGQL = contactListGQL;
             this.router = router$$1;
             this.cd = cd;
             this.groupingContact = groupingContact;
@@ -758,10 +759,9 @@
             this.mobileHeight = this.contactsHelper.getMobileHeight('152px');
             this.desktopHeight = 0;
             this.searchText = '';
-            console.log(123);
             this.getActiveLanguage();
-            // this.setContactsGql();
-            // this.uploadData();
+            this.setContactsGql();
+            this.uploadData();
             this.contactsHelper.headerData.next({
                 title: EContactTitles.contacts,
                 path: '/'
@@ -846,18 +846,23 @@
          * @return {?}
          */
             function () {
-                // const domain = this.urlUtils.getSubDomain();
-                //
-                // this.contactsGql$ = this.contactListGQL.watch({ domain }).valueChanges.pipe(
-                //   pluck('data', 'apps'),
-                //   map(
-                //     apps =>
-                //       apps &&
-                //       apps
-                //         .filter(app => app.data.length)
-                //         .map(items => items.data && items.data)[0]
-                //   )
-                // );
+                /** @type {?} */
+                var domain = this.urlUtils.getSubDomain();
+                this.contactsGql$ = this.contactListGQL.watch({ domain: domain }).valueChanges.pipe(operators.pluck('data', 'apps'), operators.map(( /**
+                 * @param {?} apps
+                 * @return {?}
+                 */function (apps) {
+                    return apps &&
+                        apps
+                            .filter(( /**
+                     * @param {?} app
+                     * @return {?}
+                     */function (app) { return app.data.length; }))
+                            .map(( /**
+                     * @param {?} items
+                     * @return {?}
+                     */function (items) { return items.data && items.data; }))[0];
+                })));
             };
         /**
          * @private
@@ -1083,6 +1088,7 @@
                 { type: undefined, decorators: [{ type: i0.Inject, args: ['storageService',] }] },
                 { type: undefined, decorators: [{ type: i0.Inject, args: ['urlUtils',] }] },
                 { type: ContactsHelper },
+                { type: ContactListRest },
                 { type: router.Router },
                 { type: i0.ChangeDetectorRef },
                 { type: GroupingPipe },
@@ -1863,7 +1869,7 @@
             { type: i0.NgModule, args: [{
                         imports: [
                             sorbaUiComponents.SorbaUiComponentsModule,
-                            i1$2.IonicModule,
+                            i1$1.IonicModule,
                             common.CommonModule,
                             forms.ReactiveFormsModule,
                             core.AgmCoreModule.forRoot({
@@ -1872,7 +1878,7 @@
                         ],
                         exports: [
                             sorbaUiComponents.SorbaUiComponentsModule,
-                            i1$2.IonicModule,
+                            i1$1.IonicModule,
                             common.CommonModule,
                             forms.ReactiveFormsModule,
                             // components
@@ -1925,7 +1931,6 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
-    // import { GraphQLModule } from './contacts.graphql.module';
     /** @type {?} */
     var routes = [
         {
@@ -1958,7 +1963,13 @@
             { type: i0.NgModule, args: [{
                         declarations: [ContactsComponent, RootPage],
                         exports: [ContactsComponent, RootPage],
-                        imports: [SharedModule, router.RouterModule.forChild(routes)]
+                        imports: [
+                            SharedModule,
+                            i1$2.ApolloModule,
+                            http.HttpClientModule,
+                            apolloAngularLinkHttp.HttpLinkModule,
+                            router.RouterModule.forChild(routes),
+                        ],
                     },] }
         ];
         return ContactsModule;
@@ -1975,20 +1986,21 @@
      */
 
     exports.ContactsModule = ContactsModule;
-    exports.ɵk = ContactActionsComponent;
-    exports.ɵj = ContactDetailComponent;
-    exports.ɵl = FooterComponent;
-    exports.ɵg = HeaderComponent;
-    exports.ɵh = SearchContactsComponent;
-    exports.ɵi = SelectedMenuComponent;
-    exports.ɵm = TermsButtonComponent;
+    exports.ɵl = ContactActionsComponent;
+    exports.ɵk = ContactDetailComponent;
+    exports.ɵm = FooterComponent;
+    exports.ɵh = HeaderComponent;
+    exports.ɵi = SearchContactsComponent;
+    exports.ɵj = SelectedMenuComponent;
+    exports.ɵn = TermsButtonComponent;
     exports.ɵb = GroupingPipe;
-    exports.ɵn = StringLimitPipe;
+    exports.ɵo = StringLimitPipe;
+    exports.ɵd = ContactListRest;
     exports.ɵc = ContactsHelper;
-    exports.ɵd = KeyboardHelper;
-    exports.ɵf = SharedModule;
+    exports.ɵe = KeyboardHelper;
+    exports.ɵg = SharedModule;
     exports.ɵa = ContactsComponent;
-    exports.ɵe = RootPage;
+    exports.ɵf = RootPage;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
