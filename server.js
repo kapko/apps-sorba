@@ -5,6 +5,7 @@
 }(this, (function (exports,ngx,i1,gql,sorbaUiComponents,i1$1,common,core,platformBrowser,router,forms,ngx$1,ngx$2,ngx$3,rxjs,operators,scrolling,i0,i1$2,apolloCacheInmemory) { 'use strict';
 
     gql = gql ? gql['default'] : gql;
+    console.log(1);
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
@@ -1953,7 +1954,6 @@
             get: /**
              * @return {?}
              */ function () {
-                 console.log(this.scrollHeight);
                 return this.scrollHeight ? this.scrollHeight + "px" : '100vh';
             },
             enumerable: true,
@@ -2032,8 +2032,8 @@
         ScrollerComponent.decorators = [
             { type: i0.Component, args: [{
                         selector: 'lib-scroller',
-                        template: "<cdk-virtual-scroll-viewport [ngStyle]=\"{height: height}\"\n                             #viewPort\n                             [itemSize]=\"itemSize\"\n                             [minBufferPx]=\"itemSize\"\n                             [maxBufferPx]=\"itemSize\">\n  <ng-container *cdkVirtualFor=\"let item of contacts; let i = index; trackBy: identify\">\n    <ion-item-divider\n      *ngIf=\"groupContacts(item, i, contacts)\">\n      <ion-label>{{groupContacts(item, i, contacts)}}</ion-label>\n    </ion-item-divider>\n\n    <sr-contact-item\n      [data]=\"item\"\n      [windowWidth]=\"1300\"\n      [hasActions]=\"true\"\n    >\n    </sr-contact-item>\n  </ng-container>\n  <ng-container *ngIf=\"loading$ | async\">\n    <div class=\"loader\">\n      <ion-spinner></ion-spinner>\n    </div>\n  </ng-container>\n\n</cdk-virtual-scroll-viewport>\n\n",
-                        styles: [".loader{height:50px}"]
+                        template: "<cdk-virtual-scroll-viewport class=\"scroller\"\n                             #viewPort\n                             [itemSize]=\"itemSize\"\n                             [minBufferPx]=\"itemSize\"\n                             [maxBufferPx]=\"itemSize\">\n  <ng-container *cdkVirtualFor=\"let item of contacts; let i = index; trackBy: identify\">\n    <ion-item-divider\n      *ngIf=\"groupContacts(item, i, contacts)\">\n      <ion-label>{{groupContacts(item, i, contacts)}}</ion-label>\n    </ion-item-divider>\n\n    <sr-contact-item\n      [data]=\"item\"\n      [windowWidth]=\"1300\"\n      [hasActions]=\"true\"\n    >\n    </sr-contact-item>\n  </ng-container>\n  <ng-container *ngIf=\"loading$ | async\">\n    <div class=\"loader\">\n      <ion-spinner></ion-spinner>\n    </div>\n  </ng-container>\n\n</cdk-virtual-scroll-viewport>\n\n",
+                        styles: [".loader{height:50px}.scroller{height:calc(100% - 120px)}@media (max-width:768px){.scroller{height:calc(100vh - 190px)}}"]
                     }] }
         ];
         /** @nocollapse */
