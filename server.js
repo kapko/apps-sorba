@@ -1144,7 +1144,7 @@
         ContactsComponent.decorators = [
             { type: i0.Component, args: [{
                         selector: 'lib-contacts',
-                        template: "<!--sidebar-->\n<sr-sidemenu\n  *ngIf=\"!showMenu\"\n  openMenuText=\"menu\"\n  closeMenuText=\"close\"\n  [data]=\"menuData\"\n  [windowWidth]=\"windowWidth\"\n  [isMenuFloat]=\"menuFloat\"\n></sr-sidemenu>\n\n<sr-content-card\n  class=\"contacts-container\"\n  *ngIf=\"(contactsList$ | async)?.length; else loading\"\n>\n  <div class=\"left-panel\">\n    <header class=\"contacts-list-header\">\n      <div class=\"top-block\">\n        <lib-selected-menu\n          [items]=\"menuItems$ | async\"\n          (selectedEvent)=\"filterByMenu($event)\"\n        ></lib-selected-menu>\n        <sr-button\n          *ngIf=\"!showMenu\"\n          buttonType=\"icon\"\n          svgIcon=\"contact-add\"\n          class=\"contact-add\"\n        ></sr-button>\n      </div>\n\n      <lib-search-contacts\n        [searchList]=\"contactsList$ | async\"\n        (searchEvent)=\"searchEvent($event)\"\n        (selectContactItem)=\"selectContactItem($event)\"\n      ></lib-search-contacts>\n    </header>\n\n    <lib-scroller\n      *ngIf=\"!searchText.length\"\n      (fetchMore)=\"fetchMore()\"\n      [contacts]=\"contactsList$ | async\"\n    ></lib-scroller>\n  </div>\n\n  <!-- user details column-->\n  <div class=\"right-panel\" #rightPanel *ngIf=\"!isMobile\">\n    <div class=\"contact-details-body\">\n      <lib-contact-detail></lib-contact-detail>\n    </div>\n  </div>\n</sr-content-card>\n\n<ng-template #loading>\n  <sr-progress-spinner backdropColor=\"#fff\"></sr-progress-spinner>\n</ng-template>\n",
+                        template: "<!--sidebar-->\n<sr-sidemenu\n  *ngIf=\"!showMenu\"\n  openMenuText=\"menu\"\n  closeMenuText=\"close\"\n  [data]=\"menuData\"\n  [windowWidth]=\"windowWidth\"\n  [isMenuFloat]=\"menuFloat\"\n></sr-sidemenu>\n\n<sr-content-card\n  class=\"contacts-container\"\n  *ngIf=\"(contactsList$ | async)?.length; else loading\"\n>\n  <div class=\"left-panel\">\n    <header class=\"contacts-list-header\">\n      <div class=\"top-block\">\n        <lib-selected-menu\n          [items]=\"menuItems$ | async\"\n          (selectedEvent)=\"filterByMenu($event)\"\n        ></lib-selected-menu>\n        <sr-button\n          *ngIf=\"!showMenu\"\n          buttonType=\"icon\"\n          svgIcon=\"contact-add\"\n          class=\"contact-add\"\n        ></sr-button>\n      </div>\n\n      <lib-search-contacts\n        [searchList]=\"contactsList$ | async\"\n        (searchEvent)=\"searchEvent($event)\"\n        (selectContactItem)=\"selectContactItem($event)\"\n      ></lib-search-contacts>\n    </header>\n\n    <lib-scroller\n      *ngIf=\"!searchText.length\"\n      (fetchMore)=\"fetchMore()\"\n      [scrollHeight]=\"desktopHeight\"\n      [contacts]=\"contactsList$ | async\"\n    ></lib-scroller>\n  </div>\n\n  <!-- user details column-->\n  <div class=\"right-panel\" #rightPanel *ngIf=\"!isMobile\">\n    <div class=\"contact-details-body\">\n      <lib-contact-detail></lib-contact-detail>\n    </div>\n  </div>\n</sr-content-card>\n\n<ng-template #loading>\n  <sr-progress-spinner backdropColor=\"#fff\"></sr-progress-spinner>\n</ng-template>\n",
                         encapsulation: i0.ViewEncapsulation.None,
                         providers: [GroupingPipe],
                         changeDetection: i0.ChangeDetectionStrategy.OnPush,
@@ -1949,11 +1949,11 @@
                 this.subject.next();
                 this.subject.complete();
             };
-        Object.defineProperty(ScrollerComponent.prototype, "scrollHeight", {
+        Object.defineProperty(ScrollerComponent.prototype, "height", {
             get: /**
              * @return {?}
              */ function () {
-                return this.isMobile ? '100vh' : '100%';
+                return this.scrollHeight ? this.scrollHeight + "px" : '100vh';
             },
             enumerable: true,
             configurable: true
@@ -2031,7 +2031,7 @@
         ScrollerComponent.decorators = [
             { type: i0.Component, args: [{
                         selector: 'lib-scroller',
-                        template: "<cdk-virtual-scroll-viewport [ngStyle]=\"{height: scrollHeight }\"\n                             #viewPort\n                             [itemSize]=\"itemSize\"\n                             [minBufferPx]=\"itemSize\"\n                             [maxBufferPx]=\"itemSize\">\n  <ng-container *cdkVirtualFor=\"let item of contacts; let i = index; trackBy: identify\">\n    <ion-item-divider\n      *ngIf=\"groupContacts(item, i, contacts)\">\n      <ion-label>{{groupContacts(item, i, contacts)}}</ion-label>\n    </ion-item-divider>\n\n    <sr-contact-item\n      [data]=\"item\"\n      [windowWidth]=\"1300\"\n      [hasActions]=\"true\"\n    >\n    </sr-contact-item>\n  </ng-container>\n  <ng-container *ngIf=\"loading$ | async\">\n    <div class=\"loader\">\n      <ion-spinner></ion-spinner>\n    </div>\n  </ng-container>\n\n</cdk-virtual-scroll-viewport>\n\n",
+                        template: "<cdk-virtual-scroll-viewport [ngStyle]=\"{height: height}\"\n                             #viewPort\n                             [itemSize]=\"itemSize\"\n                             [minBufferPx]=\"itemSize\"\n                             [maxBufferPx]=\"itemSize\">\n  <ng-container *cdkVirtualFor=\"let item of contacts; let i = index; trackBy: identify\">\n    <ion-item-divider\n      *ngIf=\"groupContacts(item, i, contacts)\">\n      <ion-label>{{groupContacts(item, i, contacts)}}</ion-label>\n    </ion-item-divider>\n\n    <sr-contact-item\n      [data]=\"item\"\n      [windowWidth]=\"1300\"\n      [hasActions]=\"true\"\n    >\n    </sr-contact-item>\n  </ng-container>\n  <ng-container *ngIf=\"loading$ | async\">\n    <div class=\"loader\">\n      <ion-spinner></ion-spinner>\n    </div>\n  </ng-container>\n\n</cdk-virtual-scroll-viewport>\n\n",
                         styles: [".loader{height:50px}"]
                     }] }
         ];
@@ -2044,6 +2044,7 @@
         ScrollerComponent.propDecorators = {
             viewPort: [{ type: i0.ViewChild, args: ['viewPort',] }],
             contacts: [{ type: i0.Input }],
+            scrollHeight: [{ type: i0.Input }],
             fetchMore: [{ type: i0.Output }]
         };
         return ScrollerComponent;
