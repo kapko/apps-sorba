@@ -4,7 +4,7 @@
     (factory((global.contacts = {}),global.ngx,global.i1,global.gql,global.sorbaUiComponents,global.i1$1,global.ng.common,global.core,global.ng.platformBrowser,global.ng.router,global.ng.forms,global.ngx$1,global.ngx$2,global.ngx$3,global.rxjs,global.rxjs.operators,global.ng.cdk.scrolling,global.ng.core,global.i1$2,global.apolloCacheInmemory));
 }(this, (function (exports,ngx,i1,gql,sorbaUiComponents,i1$1,common,core,platformBrowser,router,forms,ngx$1,ngx$2,ngx$3,rxjs,operators,scrolling,i0,i1$2,apolloCacheInmemory) { 'use strict';
 
-    gql = gql && gql.hasOwnProperty('default') ? gql['default'] : gql;
+    gql = gql ? gql['default'] : gql;
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
