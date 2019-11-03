@@ -1953,6 +1953,7 @@
             get: /**
              * @return {?}
              */ function () {
+                 console.log(this.scrollHeight);
                 return this.scrollHeight ? this.scrollHeight + "px" : '100vh';
             },
             enumerable: true,
