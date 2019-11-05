@@ -5,7 +5,7 @@
 }(this, (function (exports,ngx,i1,sorbaUiComponents,i1$1,common,core,platformBrowser,router,forms,gql,update,ngx$1,ngx$2,ngx$3,rxjs,operators,scrolling,i0,i1$2,apolloCacheInmemory) { 'use strict';
 
     gql = gql ? gql['default'] : gql;
-    update = update && update.hasOwnProperty('default') ? update['default'] : update;
+    update = update ? update['default'] : update;
 
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
