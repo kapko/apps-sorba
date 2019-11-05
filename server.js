@@ -7,6 +7,21 @@
     gql = gql ? gql['default'] : gql;
     update = update ? update['default'] : update;
 
+    /*! *****************************************************************************
+    Copyright (c) Microsoft Corporation. All rights reserved.
+    Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+    this file except in compliance with the License. You may obtain a copy of the
+    License at http://www.apache.org/licenses/LICENSE-2.0
+
+    THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
+    WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
+    MERCHANTABLITY OR NON-INFRINGEMENT.
+
+    See the Apache Version 2.0 License for specific language governing permissions
+    and limitations under the License.
+    ***************************************************************************** */
+    /* global Reflect, Promise */
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -309,6 +324,7 @@
         function ContactsHelper() {
             this.isMobile = window.innerWidth < 768;
             this.isDesktop = window.innerWidth > 1023;
+            this.isTablet = window.innerWidth >= 768 && window.innerWidth < 1024;
             this.desktopHeight = 'calc(100vh - var(--header-height) - var(--ion-safe-area-top, 0) - 277px)';
             this.activeContact = new rxjs.BehaviorSubject(null);
             this.activeLanguage$ = new rxjs.BehaviorSubject('ENGLISH');
@@ -845,10 +861,7 @@
          */
             function () {
                 var _this = this;
-                if (!this.isMobile) {
-                    this.activeDomainName = this.urlUtils.getSubDomain();
-                }
-                else {
+                if (this.contactsHelper.isTablet || this.contactsHelper.isMobile) {
                     this.appService
                         .getActiveDomain()
                         .pipe(operators.takeUntil(this.subject))
@@ -858,7 +871,9 @@
                  */function (activeDomain) {
                         _this.activeDomainName = activeDomain;
                     }));
+                    return;
                 }
+                this.activeDomainName = this.urlUtils.getSubDomain();
             };
         /**
          * @private
@@ -1015,6 +1030,8 @@
                  * @return {?}
                  */function (item) {
                     /** @type {?} */
+                    var text = item.first_name.trim().length ? item.first_name + " " + item.name : item.name;
+                    /** @type {?} */
                     var type;
                     // item field LOG20 = true === 'company type'
                     if (item.logical20) {
@@ -1025,11 +1042,7 @@
                         userCount++;
                         type = EContactType.user;
                     }
-                    return Object.assign(item, {
-                        text: item.first_name + " " + item.name,
-                        type: type,
-                        id: item.id
-                    });
+                    return Object.assign(item, { text: text, type: type, id: item.id });
                 }));
                 // total count of contacts
                 this.setMenuCount({ companyCount: companyCount, userCount: userCount, totalCount: totalCount });
@@ -1119,7 +1132,7 @@
                         encapsulation: i0.ViewEncapsulation.None,
                         providers: [GroupingPipe],
                         changeDetection: i0.ChangeDetectionStrategy.OnPush,
-                        styles: [".contacts-list-header .top-block{display:flex;align-items:center;justify-content:space-between;padding:14px 8px 14px 12px}.contacts-list-header .mat-button-wrapper sr-text{order:-1}.contacts-list-header .mat-icon-button.text{font-weight:600}.contact-add .mat-icon-button.icon{color:var(--sr-base-color)}.search-field .input-wrapper{display:flex;align-items:center;height:48px;padding:4px 16px 4px 28px;border-top:1px solid var(--sr-border-color);border-bottom:1px solid var(--sr-border-color)}.search-field .input-wrapper sr-icon{color:var(--base-gray-64)}.search-field .input-wrapper input{width:100%;padding:0;border:0;font-weight:600}.search-field .input-wrapper .search-icon{margin-right:16px}.search-field .no-data{display:block;padding:16px 16px 16px 68px}@media (max-width:767px){.contacts-container .contact-add{position:fixed;right:8px;bottom:8px;z-index:71}}ion-spinner{margin:0 auto;display:block}.info-section{padding:16px 12px;border-top:1px solid var(--sr-border-color)}.info-section .section-header{display:flex;align-items:center;justify-content:space-between;min-height:40px}.info-section .section-header sr-heading{color:var(--sr-light-text-color)}.info-section .section-body{margin:10px 0 8px}.info-section .section-info-field{display:flex}.info-section .section-info-field:not(:first-child){margin-top:11px}.info-section .section-info-field .field-content{flex-grow:1}.info-section .section-info-field .field-content.contact{display:flex}.info-section .section-info-field .field-content.contact sr-avatar{margin-right:12px}.info-section .section-info-field .field-content.contact sr-link{display:block;margin-top:6px}.info-section .section-info-field .field-content.project{display:flex}.info-section .section-info-field .field-content.project sr-icon{color:var(--base-gray-64)}.info-section .section-info-field .field-content.project sr-price-label{display:block;margin:6px 0 0}.info-section .section-info-field .field-content.project .icon-wrapper{width:32px;margin-right:12px;text-align:center}.info-section .section-info-field .field-content.project .divider{display:none}.info-section .section-info-field .field-content.project .field{display:block}@media (min-width:768px){.contacts-container .content-card{display:flex}.contacts-container .left-panel{width:263px;border-right:1px solid var(--sr-border-color);border-bottom-left-radius:5px;overflow:hidden}.contacts-container .right-panel{width:calc(100% - 263px)}.contacts-list-header .top-block{height:72px;padding:3px 16px 4px 24px}.filter-menu{min-width:226px;max-width:300px;margin:8px 0 0 -24px}.info-section{padding:23px 24px 21px}.info-section .section-body{margin:10px 0 6px}.info-section .section-info-field .field-content.project sr-price-label{display:inline-block;margin:0 0 0 5px}.info-section .section-info-field .field-content.project .icon-wrapper{width:32px;display:flex;justify-content:center;margin-right:12px}.info-section .section-info-field .field-content.project .divider{display:inline-block;margin:0 2px;color:var(--sr-light-text-color)}.info-section .section-info-field .field-content.project .field{display:inline-block}.info-section .section-info-field .field-content.project .field.status{display:block}}@media (min-width:1280px){.info-section .section-info-field{position:relative;cursor:pointer}.info-section .section-info-field sr-actions{opacity:0;visibility:hidden;transition:250ms}.info-section .section-info-field:hover sr-actions{opacity:1;visibility:visible}}"]
+                        styles: [".contacts-list-header .top-block{display:flex;align-items:center;justify-content:space-between;padding:14px 8px 14px 12px}.contacts-list-header .mat-button-wrapper sr-text{order:-1}.contacts-list-header .mat-icon-button.text{font-weight:600}.contact-add .mat-icon-button.icon{color:var(--sr-base-color)}.search-field .input-wrapper{display:flex;align-items:center;height:48px;padding:4px 16px 4px 28px;border-top:1px solid var(--sr-border-color);border-bottom:1px solid var(--sr-border-color)}.search-field .input-wrapper sr-icon{color:var(--base-gray-64)}.search-field .input-wrapper input{width:100%;padding:0;border:0;font-weight:600}.search-field .input-wrapper .search-icon{margin-right:16px}.search-field .no-data{display:block;padding:16px 16px 16px 68px}@media (max-width:767px){.contacts-container .contact-add{position:fixed;right:8px;bottom:8px;z-index:71}}ion-spinner{margin:0 auto;display:block}.info-section{padding:16px 12px;border-top:1px solid var(--sr-border-color)}.info-section .section-header{display:flex;align-items:center;justify-content:space-between;min-height:40px}.info-section .section-header sr-heading{color:var(--sr-light-text-color)}.info-section .section-body{margin:10px 0 8px}.info-section .section-info-field{display:flex}.info-section .section-info-field:not(:first-child){margin-top:11px}.info-section .section-info-field .field-content{flex-grow:1}.info-section .section-info-field .field-content.contact{display:flex}.info-section .section-info-field .field-content.contact sr-avatar{margin-right:12px}.info-section .section-info-field .field-content.contact sr-link{display:block;margin-top:6px}.info-section .section-info-field .field-content.project{display:flex}.info-section .section-info-field .field-content.project sr-icon{color:var(--base-gray-64)}.info-section .section-info-field .field-content.project sr-price-label{display:block;margin:6px 0 0}.info-section .section-info-field .field-content.project .icon-wrapper{width:32px;margin-right:12px;text-align:center}.info-section .section-info-field .field-content.project .divider{display:none}.info-section .section-info-field .field-content.project .field{display:block}@media (min-width:768px){.contacts-container .content-card{display:flex}.contacts-container .left-panel{width:263px;border-right:1px solid var(--sr-border-color);border-bottom-left-radius:5px;overflow:hidden}.contacts-container .right-panel{width:calc(100% - 263px)}.contacts-list-header .top-block{height:72px;padding:3px 16px 4px 24px}.filter-menu{min-width:226px;max-width:300px;margin:8px 0 0 -24px}.info-section{padding:23px 24px 21px}.info-section .section-body{margin:10px 0 6px}.info-section .section-info-field .field-content.project sr-price-label{display:inline-block;margin:0 0 0 5px}.info-section .section-info-field .field-content.project .icon-wrapper{width:32px;display:flex;justify-content:center;margin-right:12px}.info-section .section-info-field .field-content.project .divider{display:inline-block;margin:0 2px;color:var(--sr-light-text-color)}.info-section .section-info-field .field-content.project .field{display:inline-block}.info-section .section-info-field .field-content.project .field.status{display:block}}@media (min-width:1280px){.info-section .section-info-field{position:relative;cursor:pointer}.info-section .section-info-field sr-actions{opacity:0;visibility:hidden;transition:250ms}.info-section .section-info-field:hover sr-actions{opacity:1;visibility:visible}}.cdk-virtual-scroll-orientation-vertical .cdk-virtual-scroll-content-wrapper{min-width:0;width:100%}.contacts-list-container{position:relative}.contacts-list-container .group-title-wrapper{background:var(--white);z-index:3}.contacts-list-container .group-title-wrapper .group-title{position:relative;padding-left:56px;background-color:var(--base-gray-3);color:var(--base-gray-64);line-height:24px;text-transform:uppercase}.sticker{padding-left:56px;background-color:var(--base-gray-3);color:var(--base-gray-64);line-height:24px;text-transform:uppercase}@media (min-width:768px){.contacts-list-container .group-title-wrapper .group-title,.sticker{padding-left:68px}}"]
                     }] }
         ];
         /** @nocollapse */
@@ -2074,6 +2087,7 @@
             this.selectContact = new i0.EventEmitter();
             this.loading$ = new rxjs.BehaviorSubject(false);
             this.itemSize = 50;
+            this.windowWidth = window.innerWidth;
             this.subject = new rxjs.Subject();
             this.activeContact$ = this.contactHelper.activeContact;
         }
@@ -2190,7 +2204,14 @@
                         .pipe(operators.auditTime(300), operators.tap(( /**
                  * @return {?}
                  */function () { return _this.nextBatch(); })), operators.takeUntil(this.subject))
-                        .subscribe();
+                        .subscribe(( /**
+                 * @param {?} index
+                 * @return {?}
+                 */function (index) {
+                        /** @type {?} */
+                        var text = _this.contacts[index].text;
+                        _this.sticker = text[0];
+                    }));
                 }
             };
         /**
@@ -2216,8 +2237,8 @@
         ScrollerComponent.decorators = [
             { type: i0.Component, args: [{
                         selector: 'lib-scroller',
-                        template: "<cdk-virtual-scroll-viewport\n  class=\"scroller\"\n  #viewPort\n  [itemSize]=\"itemSize\"\n  [minBufferPx]=\"itemSize\"\n  [maxBufferPx]=\"itemSize\"\n>\n  <ng-container\n    *cdkVirtualFor=\"let item of contacts; let i = index; trackBy: identify\"\n  >\n    <ion-item-divider *ngIf=\"groupContacts(item, i, contacts)\">\n      <ion-label>{{ groupContacts(item, i, contacts) }}</ion-label>\n    </ion-item-divider>\n\n    <sr-contact-item\n      [data]=\"item\"\n      [activeItemId]=\"(activeContact$ | async)?.id\"\n      [windowWidth]=\"1300\"\n      (click)=\"onSelectContactItem(item)\"\n      [hasActions]=\"true\"\n    >\n    </sr-contact-item>\n  </ng-container>\n\n  <ng-container *ngIf=\"loading$ | async\">\n    <div class=\"loader\">\n      <ion-spinner></ion-spinner>\n    </div>\n  </ng-container>\n</cdk-virtual-scroll-viewport>\n",
-                        styles: [".loader{height:50px}@media (max-width:768px){.scroller{height:calc(100vh - 190px)}}"]
+                        template: "<p class=\"sticker\">{{sticker}}</p>\n\n<cdk-virtual-scroll-viewport\n  class=\"scroller\"\n  #viewPort\n  [itemSize]=\"itemSize\"\n  [minBufferPx]=\"itemSize\"\n  [maxBufferPx]=\"itemSize\"\n>\n  <div class=\"contacts-list-container\">\n    <ng-container\n      *cdkVirtualFor=\"let item of contacts; let i = index; trackBy: identify\"\n    >\n      <div class=\"contacts-group\">\n        <div\n          class=\"group-title-wrapper\"\n          *ngIf=\"groupContacts(item, i, contacts)\"\n        >\n          <div class=\"group-title\">\n            {{ groupContacts(item, i, contacts) }}\n          </div>\n        </div>\n        <sr-contact-item\n          [data]=\"item\"\n          [windowWidth]=\"windowWidth\"\n          [hasActions]=\"true\"\n          (click)=\"onSelectContactItem(item)\"\n        >\n        </sr-contact-item>\n      </div>\n    </ng-container>\n  </div>\n\n  <ng-container *ngIf=\"loading$ | async\">\n    <div class=\"loader\">\n      <ion-spinner></ion-spinner>\n    </div>\n  </ng-container>\n</cdk-virtual-scroll-viewport>\n",
+                        styles: [".loader{height:50px}@media (max-width:767px){.scroller{height:calc(100vh - 220px)}}"]
                     }] }
         ];
         /** @nocollapse */
